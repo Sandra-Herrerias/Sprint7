@@ -1,1 +1,8 @@
-/* You can add global styles to this file, and also import other style files */
+.textBtn {
+    color: white;
+    text-decoration: none;
+}
+
+.backColorBtn {
+    background-color: #8b72b6;
+}
