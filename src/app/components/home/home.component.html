@@ -1,1 +1,21 @@
-<p>home works!</p>
+<div class="container">
+  <p>¿Qué quieres hacer?</p>
+  <form [formGroup]="form">
+    <div class="mb-3">
+        <input  type="checkbox" id="web" formControlName="webForm" (change)="check($event)"/>
+    <label class="form-label" for="web">Una pàgina web (500€) </label>
+    </div>
+    <div class="mb-3">
+         <input type="checkbox" id="seo" formControlName="seoForm"/>
+    <label class="form-label" for="seo">Una consultoria SEO (300€)</label>
+    </div>
+    <div class="mb-3">
+         <input type="checkbox" id="ads" formControlName="adsForm"/>
+    <label class="form-label" for="ads">Una campanya de Google Ads (200€)</label> 
+    </div>
+    <div class="mb-3">
+            <label class="form-label" for="price">Preu: </label>
+    <input type="text" id="price" />
+    </div>
+  </form>
+</div>
