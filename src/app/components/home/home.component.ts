@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, FormArray } from '@angular/forms';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -7,7 +8,7 @@ import { FormGroup, FormControl, FormBuilder, FormArray } from '@angular/forms';
 })
 export class HomeComponent {
   form!: FormGroup;
-
+  blnDisplayMenu:boolean=true;
   Data: Array<any> = [
     { id: 'web', name: 'Una pàgina web (500€)', value: 500 },
     { id: 'seo', name: 'Una consultoria SEO (300€)', value: 300 },
@@ -36,4 +37,6 @@ export class HomeComponent {
     }
     console.log(checkArray);
  }
+
+ 
 }
