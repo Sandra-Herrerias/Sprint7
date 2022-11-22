@@ -9,6 +9,8 @@ import { FormGroup, FormControl, FormBuilder, FormArray } from '@angular/forms';
 export class HomeComponent {
   form!: FormGroup;
 
+  showPanell: boolean = false;
+
   total!: string[];
   arrayNumbers: number[] = [];
   result!: number;
@@ -27,8 +29,6 @@ export class HomeComponent {
 
   }
 
-
-
   ngOnInit(): void {
 
   }
@@ -38,7 +38,6 @@ export class HomeComponent {
    * @param event 
    */
   checkValue(event: any) {
-
     //values from form
     const checkArray: FormArray = this.form.get('checkArray') as FormArray;
 
@@ -49,13 +48,16 @@ export class HomeComponent {
       const index = checkArray.controls.findIndex(x => x.value === event.target.value);
       checkArray.removeAt(index);
     }
-    console.log(checkArray.value);
+
 
     //add values to new array
     this.total = Array.from(checkArray.value);
 
     this.arrayNumbers = this.convertArrStringToArrNum(this.total);
     this.totalBudget = this.totalSum(this.arrayNumbers);
+
+    //if web id is selected
+    this.showPanellChild(event);
   }
 
 
@@ -69,7 +71,6 @@ export class HomeComponent {
     const arrOfNum = numbers.map(str => {
       return Number(str);
     });
-    console.log(arrOfNum);
     return arrOfNum;
   }
 
@@ -84,8 +85,20 @@ export class HomeComponent {
     this.result = numbers.reduce((accumulator, current) => {
       return accumulator + current;
     }, 0);
-    console.log(this.result);
     return this.result;
   }
+
+
+  /**
+   * Function that shows child component in case id were web
+   * @param event 
+   */
+  showPanellChild(event: any){
+    if(event.target.id == 'web' && event.target.checked){
+    this.showPanell=true;
+  }else{
+    this.showPanell=false;
+  }
+}
 
 }
