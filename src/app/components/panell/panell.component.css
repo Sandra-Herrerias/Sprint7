@@ -1,0 +1,12 @@
+.btnSpinner {
+    background-color: orangered;
+    color: white;
+    border-radius: 5px;
+    font-size: large;
+    border: none;
+}
+
+.borderBlack {
+    border-color: black;
+    border-radius: 5px;
+}

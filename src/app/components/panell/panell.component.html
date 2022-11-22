@@ -1,19 +1,23 @@
-<div class="container" >
+<div class="container">
     <div class="wrapper">
         <p>¿Qué quieres hacer?</p>
         <form #form2="ngForm" method="post">
-           
+
             <div class="form-group">
                 <label class="form-label">Número de páginas </label>
-                <button class="btn"></button>
-                <input type="number">
-                <button class="btn"></button>
+                <button class="btnSpinner mx-1 " type="button" (click)="plus($event)"> <i id="plusPage" class="fa fa-plus"></i></button>
+                <input class="borderBlack  form-control-color" type="text" [value]="numPage" pattern="[0-9]+">
+                <button id="minusPage" class="btnSpinner mx-1" type="button" (click)="minus($event)"> <i id="minusPage" class="fa fa-minus"></i></button>
             </div>
-            
+
             <div class="form-group">
                 <label class="form-label">Número de idiomas </label>
+                <button class="btnSpinner mx-1 " type="button" (click)="plus($event)"> <i id="plusLang" class="fa fa-plus"></i></button>
+                <input class="borderBlack  form-control-color" type="text" [value]="numLang" pattern="[0-9]+">
+                <button id="minusLang" class="btnSpinner mx-1" type="button" (click)="minus($event)"> <i id="minusLang" class="fa fa-minus"></i></button>
             </div>
+            <p>preu total: {{totalSum()}}</p>
         </form>
-        
+
     </div>
 </div>

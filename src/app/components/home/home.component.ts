@@ -96,7 +96,7 @@ export class HomeComponent {
   showPanellChild(event: any){
     if(event.target.id == 'web' && event.target.checked){
     this.showPanell=true;
-  }else{
+  }else if(event.target.id == 'web' && !event.target.checked){
     this.showPanell=false;
   }
 }
