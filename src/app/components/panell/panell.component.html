@@ -1,23 +1,23 @@
 <div class="container">
     <div class="wrapper">
         <p>¿Qué quieres hacer?</p>
-        <form #form2="ngForm" method="post">
+        <form #form2="ngForm" [formGroup]="formPanell" method="get">
 
             <div class="form-group">
-                <label class="form-label">Número de páginas </label>
+                <label for="numPage" class="form-label">Número de páginas </label>
                 <button class="btnSpinner mx-1 " type="button" (click)="plus($event)"> <i id="plusPage" class="fa fa-plus"></i></button>
-                <input class="borderBlack  form-control-color" type="text" [value]="numPage" pattern="[0-9]+">
+                <input name="numPage" formControlName="numPage" class="borderBlack  form-control-color" type="text" [value]="numPage" placeholder="0">
                 <button id="minusPage" class="btnSpinner mx-1" type="button" (click)="minus($event)"> <i id="minusPage" class="fa fa-minus"></i></button>
             </div>
 
             <div class="form-group">
-                <label class="form-label">Número de idiomas </label>
+                <label for="numLang" class="form-label">Número de idiomas </label>
                 <button class="btnSpinner mx-1 " type="button" (click)="plus($event)"> <i id="plusLang" class="fa fa-plus"></i></button>
-                <input class="borderBlack  form-control-color" type="text" [value]="numLang" pattern="[0-9]+">
+                <input name="numLang" formControlName="numLang" class="borderBlack  form-control-color" type="text" [value]="numLang" placeholder="0">
                 <button id="minusLang" class="btnSpinner mx-1" type="button" (click)="minus($event)"> <i id="minusLang" class="fa fa-minus"></i></button>
             </div>
-            <p>preu total: {{totalSum()}}</p>
         </form>
-
+        <p>{{totalSum()}}</p>
+        <!--<button class="btn btn-primary" (click)="totalSum()">TEST</button>-->
     </div>
 </div>

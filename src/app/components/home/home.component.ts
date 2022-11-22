@@ -16,6 +16,8 @@ export class HomeComponent {
   result!: number;
   totalBudget!: number;
 
+  totalWeb!:number;
+
   Data: Array<any> = [
     { id: 'web', name: 'Una pàgina web (500€)', value: 500 },
     { id: 'seo', name: 'Una consultoria SEO (300€)', value: 300 },
@@ -26,6 +28,18 @@ export class HomeComponent {
     this.form = this.formBuilder.group({
       checkArray: this.formBuilder.array([])
     });
+ 
+  }
+
+  getTotal($e:any){
+    this.totalWeb = $e;
+  }
+
+  budgetWithWebTotal(){
+
+    console.log(this.result);
+    console.log(this.totalWeb);
+    return this.result + this.totalWeb;
 
   }
 

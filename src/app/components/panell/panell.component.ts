@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { TotalBudgetService } from 'src/app/services/total-budget.service';
 
 @Component({
   selector: 'app-panell',
@@ -7,32 +9,38 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PanellComponent implements OnInit {
 
+  @Output() modifiedTotal = new EventEmitter<number>();
 
-  numPage: number = 1;
-  numLang: number = 1;
+  public formPanell!: FormGroup;
+
+  numPage: number = 0;
+  numLang: number = 0;
   total!:number;
-  constructor() {
 
+  regexOnlyNumbers = "[0-9]+";
 
-  }
+  constructor(private totalService:TotalBudgetService,
+    private formBuilder: FormBuilder) {
 
-  ngOnInit(): void {
+      //Validations from reactive form
+    this.formPanell = this.formBuilder.group({
+      numPage: ['', [Validators.required,Validators.minLength(1),Validators.pattern(this.regexOnlyNumbers)]],
+      numLang: ['', [Validators.required,Validators.minLength(1),Validators.pattern(this.regexOnlyNumbers)]]
 
-  }
+    });
+    }
 
+  ngOnInit(): void {}
 
   plus($e: any) {
-    console.log($e.target.id);
     if ($e.target.id == 'plusPage') {
       this.numPage++;
     } else if ($e.target.id == 'plusLang') {
       this.numLang++;
     }
-
   }
 
   minus($e: any) {
-
     if ($e.target.id == 'minusPage') {
       if (this.numPage > 1) {
         this.numPage--;
@@ -45,13 +53,10 @@ export class PanellComponent implements OnInit {
    
   }
 
-  totalSum(){
-    console.log(this.numPage);
-    console.log(this.numLang);
-    console.log("TOTAL: "+this.numLang * this.numPage*30);
+  totalSum(){  
 
-    this.total = this.numLang * this.numPage*30;
-    return this.total;
+    this.total = this.totalService.totalBudget(this.numPage,this.numLang);
+    this.modifiedTotal.emit(this.total);
   }
 
 }
