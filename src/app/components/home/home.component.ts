@@ -1,15 +1,20 @@
-import { AfterViewInit, Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, AfterViewChecked,ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, FormArray } from '@angular/forms';
+import { BehaviorSubject } from 'rxjs';
+import { TotalBudgetService } from 'src/app/services/total-budget.service';
 
 @Component({
-  selector: 'app-home',
+  selector: 'app-home', 
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
+ 
 })
-export class HomeComponent implements OnInit, AfterViewInit {
+export class HomeComponent implements OnInit, AfterViewChecked {
 
   form!: FormGroup;
-
+  title = new BehaviorSubject(0);
+ 
   showPanell: boolean = false;
 
   total!: string[];
@@ -19,8 +24,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   totalWeb!: number;
 
-  a!:any;
-  b!:any;
+  b!:number;
 
   Data: Array<any> = [
     { id: 'web', name: 'Una pàgina web (500€)', value: 500 },
@@ -28,26 +32,28 @@ export class HomeComponent implements OnInit, AfterViewInit {
     { id: 'ads', name: 'Una campanya de Google Ads (200€)', value: 200 }
   ];
 
-  constructor(private formBuilder: FormBuilder,
-    private cdRef: ChangeDetectorRef) {
+  constructor(private formBuilder: FormBuilder,private totalService: TotalBudgetService) {
     this.form = this.formBuilder.group({
       checkArray: this.formBuilder.array([])
     });
 
   }
 
-  getTotal($e: any) {
-    console.log($e);
-    console.log(this.result + $e);
+  getTotal($initialTotal: number) {
+    console.log("$e  " + $initialTotal);
+    console.log("res+e  " + (this.result + $initialTotal));
+    console.log("B   " + this.b);
 
-    this.b=$e;
-    /*setTimeout(()=>{
-      this.totalWeb = this.result + this.b;
-     },0);*/
-     //this.cdRef.detectChanges();
-    console.log(this.b);
-    console.log($e);
+     //this.totalWeb = this.result + $initialTotal;
+     this.totalWeb = this.totalService.getTotalSum();
+
+    console.log("B   " + this.b);
+    console.log("TOTAL WEB    " + this.totalWeb);
+    console.log($initialTotal);
+  
+    
   }
+
 
 //NG0100: Expression has changed after it was checked
 //https://www.mattspaulding.org/The-Curious-Case-of-Angular-and-the-Infinite-Change-Event-Loop/
@@ -61,10 +67,12 @@ export class HomeComponent implements OnInit, AfterViewInit {
    console.log(this.totalWeb);
   }
 
-
-  ngOnInit(): void {
-  
+  ngAfterViewChecked() {
+    console.count("ngAfterViewChecked");
+    return this.totalWeb;
   }
+
+  ngOnInit(): void {}
 
   /**
    * Function that gets values selected and puts them into a new array

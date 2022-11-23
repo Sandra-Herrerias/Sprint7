@@ -30,9 +30,7 @@ export class PanellComponent implements OnInit {
     });
   }
 
-  ngOnInit(){ 
-    this.modifiedTotal.emit(this.totalSum());
-  }
+  ngOnInit(): void{}
 
   plus($e: any) {
     if ($e.target.id == 'plusPage') {
@@ -40,6 +38,8 @@ export class PanellComponent implements OnInit {
     } else if ($e.target.id == 'plusLang') {
       this.numLang++;
     }
+    this.totalService.totalBudget(this.numPage, this.numLang);
+    this.modifiedTotal.emit(this.totalService.getTotalSum());
   }
 
   minus($e: any) {
@@ -52,22 +52,20 @@ export class PanellComponent implements OnInit {
         this.numLang--;
       }
     }
-
+    this.totalService.totalBudget(this.numPage, this.numLang);
+    this.modifiedTotal.emit(this.totalService.getTotalSum());
   }
 
 
-  totalSum() {
-
-    this.total = this.totalService.totalBudget(this.numPage, this.numLang);
-    
-    return  this.total;
-  }
+  /*totalSum(){
+     this.totalService.totalBudget(this.numPage, this.numLang);
+  }*/
   
   /**
    * Function used to emit information to father component
    */
- emitTotal(){
-    this.modifiedTotal.emit(this.totalSum());
-  }
+ /*emitTotal():void{
+    this.modifiedTotal.emit(this.totalService.getTotalSum());
+  }*/
 
 }

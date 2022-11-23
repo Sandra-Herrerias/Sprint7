@@ -4,12 +4,20 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class TotalBudgetService {
-
-  constructor() { }
+  total!:number;
+  constructor() { 
+    this.total=0;
+  }
 
  
   totalBudget(num1:number,num2:number){
-    let total = num1 * num2*30;
-    return total;
+    this.total = num1 * num2*30;
+    
   }
+
+  getTotalSum():number{
+    return this.total;
+  }
+
+  
 }
