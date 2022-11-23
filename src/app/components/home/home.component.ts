@@ -50,6 +50,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
 //NG0100: Expression has changed after it was checked
+//https://www.mattspaulding.org/The-Curious-Case-of-Angular-and-the-Infinite-Change-Event-Loop/
 
   ngAfterViewInit() {
    //Promise.resolve().then(()=>this.totalWeb = this.result + this.b);
