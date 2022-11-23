@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, FormArray } from '@angular/forms';
 
 @Component({
@@ -6,7 +6,8 @@ import { FormGroup, FormControl, FormBuilder, FormArray } from '@angular/forms';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit, AfterViewInit {
+
   form!: FormGroup;
 
   showPanell: boolean = false;
@@ -16,7 +17,10 @@ export class HomeComponent {
   result!: number;
   totalBudget!: number;
 
-  totalWeb!:number;
+  totalWeb!: number;
+
+  a!:any;
+  b!:any;
 
   Data: Array<any> = [
     { id: 'web', name: 'Una pàgina web (500€)', value: 500 },
@@ -24,27 +28,41 @@ export class HomeComponent {
     { id: 'ads', name: 'Una campanya de Google Ads (200€)', value: 200 }
   ];
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder,
+    private cdRef: ChangeDetectorRef) {
     this.form = this.formBuilder.group({
       checkArray: this.formBuilder.array([])
     });
- 
-  }
-
-  getTotal($e:any){
-    this.totalWeb = $e;
-  }
-
-  budgetWithWebTotal(){
-
-    console.log(this.result);
-    console.log(this.totalWeb);
-    return this.result + this.totalWeb;
 
   }
+
+  getTotal($e: any) {
+    console.log($e);
+    console.log(this.result + $e);
+
+    this.b=$e;
+    /*setTimeout(()=>{
+      this.totalWeb = this.result + this.b;
+     },0);*/
+     //this.cdRef.detectChanges();
+    console.log(this.b);
+    console.log($e);
+  }
+
+//NG0100: Expression has changed after it was checked
+
+  ngAfterViewInit() {
+   //Promise.resolve().then(()=>this.totalWeb = this.result + this.b);
+   /*setTimeout(()=>{
+    this.totalWeb = this.result + this.b;
+   },0);*/
+   console.log(this.result + this.b);
+   console.log(this.totalWeb);
+  }
+
 
   ngOnInit(): void {
-
+  
   }
 
   /**
@@ -107,12 +125,12 @@ export class HomeComponent {
    * Function that shows child component in case id were web
    * @param event 
    */
-  showPanellChild(event: any){
-    if(event.target.id == 'web' && event.target.checked){
-    this.showPanell=true;
-  }else if(event.target.id == 'web' && !event.target.checked){
-    this.showPanell=false;
+  showPanellChild(event: any) {
+    if (event.target.id == 'web' && event.target.checked) {
+      this.showPanell = true;
+    } else if (event.target.id == 'web' && !event.target.checked) {
+      this.showPanell = false;
+    }
   }
-}
 
 }

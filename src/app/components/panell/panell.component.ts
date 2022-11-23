@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TotalBudgetService } from 'src/app/services/total-budget.service';
 
 @Component({
@@ -15,22 +15,24 @@ export class PanellComponent implements OnInit {
 
   numPage: number = 0;
   numLang: number = 0;
-  total!:number;
+  total!: number;
 
   regexOnlyNumbers = "[0-9]+";
 
-  constructor(private totalService:TotalBudgetService,
+  constructor(private totalService: TotalBudgetService,
     private formBuilder: FormBuilder) {
 
-      //Validations from reactive form
+    //Validations from reactive form
     this.formPanell = this.formBuilder.group({
-      numPage: ['', [Validators.required,Validators.minLength(1),Validators.pattern(this.regexOnlyNumbers)]],
-      numLang: ['', [Validators.required,Validators.minLength(1),Validators.pattern(this.regexOnlyNumbers)]]
+      numPage: ['', [Validators.required, Validators.minLength(1), Validators.pattern(this.regexOnlyNumbers)]],
+      numLang: ['', [Validators.required, Validators.minLength(1), Validators.pattern(this.regexOnlyNumbers)]]
 
     });
-    }
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(){ 
+    this.modifiedTotal.emit(this.totalSum());
+  }
 
   plus($e: any) {
     if ($e.target.id == 'plusPage') {
@@ -50,13 +52,22 @@ export class PanellComponent implements OnInit {
         this.numLang--;
       }
     }
-   
+
   }
 
-  totalSum(){  
 
-    this.total = this.totalService.totalBudget(this.numPage,this.numLang);
-    this.modifiedTotal.emit(this.total);
+  totalSum() {
+
+    this.total = this.totalService.totalBudget(this.numPage, this.numLang);
+    
+    return  this.total;
+  }
+  
+  /**
+   * Function used to emit information to father component
+   */
+ emitTotal(){
+    this.modifiedTotal.emit(this.totalSum());
   }
 
 }
