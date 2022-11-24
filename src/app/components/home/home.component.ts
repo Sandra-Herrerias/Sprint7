@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
   result!: number;
   totalBudget!: number;
 
-  totalWeb: number = 0;
+  totalProject: number = 0;
 
   panellnums!: number;
 
@@ -40,16 +40,8 @@ export class HomeComponent implements OnInit {
   }
 
   getTotal($initialTotal: number) {
-    console.log("$e  " + $initialTotal);
-    console.log("res+e  " + (this.result + $initialTotal));
-    console.log("B   " + this.panellnums);
-
-    //this.totalWeb = this.result + $initialTotal;
-    this.totalWeb = this.totalService.getTotalSum() + this.result;
+   // this.totalProject = this.totalService.getPartialSum() + this.result;
     this.panellnums = $initialTotal;
-    console.log("B   " + this.panellnums);
-    console.log("TOTAL WEB    " + this.totalWeb);
-    console.log($initialTotal);
   }
 
   ngOnInit(): void { }
@@ -61,39 +53,33 @@ export class HomeComponent implements OnInit {
   checkValue(event: any) {
     //values from form
     const checkArray: FormArray = this.form.get('checkArray') as FormArray;
+    let num: string = event.target.value;
+    let numsParent: number = parseInt(num);
 
     if (event.target.checked) {//add values selected to array
       checkArray.push(new FormControl(event.target.value));
 
-      let num: string = event.target.value;
-      console.log(parseInt(num));
-      let nums: number = parseInt(num);
-      console.log(this.result);
-      console.log(event.target.value);
-      console.log(this.totalWeb);
-      this.totalWeb = this.totalWeb + nums;
-      console.log(this.totalWeb);
+      console.log(numsParent);
+      this.totalProject = this.totalService.getSum(this.totalProject, numsParent);
 
     } else {//delete values unselected to array
       const index = checkArray.controls.findIndex(x => x.value === event.target.value);
       checkArray.removeAt(index);
-      let num: string = event.target.value;
-      console.log(parseInt(num));
-      let nums: number = parseInt(num);
-      this.totalWeb = this.totalWeb - nums;
-
+      if (checkArray.length === 0) {
+        this.totalProject = 0;
+      }else{
+        this.totalProject = this.totalProject- numsParent-this.panellnums;
+  
+      console.log(this.totalProject);
+      }
       if (event.target.id === "web") {
-        if( checkArray.length === 0 ){
-          this.totalWeb = 0;
-        }else{
-          this.panellnums = 0;
-          this.totalWeb =  this.totalWeb - this.panellnums;
-        }
+
+        this.panellnums = 0;
+        console.log(this.totalProject - this.panellnums);
+        this.totalProject = this.totalService.getSubstraction(this.totalProject, this.panellnums);
+        console.log(this.totalProject);
       }
     }
-
-
-
 
     //add values to new array
     this.total = Array.from(checkArray.value);
