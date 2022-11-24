@@ -1,12 +1,18 @@
 .btnSpinner {
-    background-color: orangered;
-    color: white;
-    border-radius: 5px;
-    font-size: large;
-    border: none;
+  background-color: orangered;
+  color: white;
+  border-radius: 5px;
+  font-size: large;
+  border: none;
 }
 
 .borderBlack {
-    border-color: black;
-    border-radius: 5px;
+  border: 2px solid #000;
+  border-radius: 5px;
+}
+
+.wrapper {
+  box-sizing: content-box;
+  width: 55%;
+  border-radius: 15px;
 }

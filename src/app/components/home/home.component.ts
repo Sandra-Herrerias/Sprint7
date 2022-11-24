@@ -83,7 +83,12 @@ export class HomeComponent implements OnInit {
       this.totalWeb = this.totalWeb - nums;
 
       if (event.target.id === "web") {
-        this.totalWeb =  this.totalWeb - this.panellnums;
+        if( checkArray.length === 0 ){
+          this.totalWeb = 0;
+        }else{
+          this.panellnums = 0;
+          this.totalWeb =  this.totalWeb - this.panellnums;
+        }
       }
     }
 
