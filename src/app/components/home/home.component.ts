@@ -40,10 +40,16 @@ export class HomeComponent implements OnInit {
   }
 
   getTotal($initialTotal: number) {
+
+    const basicInfo: FormGroup=  this.form.get("basicInfo") as FormGroup;
+    console.log(basicInfo.setValue);
+    console.log(typeof(basicInfo));
+    console.log(basicInfo.getRawValue);
     return this.panellnums = $initialTotal;
+    
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   /**
    * Function that gets values selected and puts them into a new array
@@ -52,7 +58,7 @@ export class HomeComponent implements OnInit {
   checkValue(event: any) {
     //values from form
     const checkArray: FormArray = this.form.get('checkArray') as FormArray;
-
+ 
     if (event.target.checked) {//add values selected to array
       checkArray.push(new FormControl(event.target.value));
 
