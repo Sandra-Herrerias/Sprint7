@@ -13,7 +13,7 @@ import { TotalBudgetService } from 'src/app/services/total-budget.service';
 export class HomeComponent implements OnInit {
 
   form!: FormGroup;
-  title = new BehaviorSubject(0);
+
 
   showPanell: boolean = false;
 
@@ -40,8 +40,7 @@ export class HomeComponent implements OnInit {
   }
 
   getTotal($initialTotal: number) {
-   // this.totalProject = this.totalService.getPartialSum() + this.result;
-    this.panellnums = $initialTotal;
+    return this.panellnums = $initialTotal;
   }
 
   ngOnInit(): void { }
@@ -53,31 +52,15 @@ export class HomeComponent implements OnInit {
   checkValue(event: any) {
     //values from form
     const checkArray: FormArray = this.form.get('checkArray') as FormArray;
-    let num: string = event.target.value;
-    let numsParent: number = parseInt(num);
 
     if (event.target.checked) {//add values selected to array
       checkArray.push(new FormControl(event.target.value));
 
-      console.log(numsParent);
-      this.totalProject = this.totalService.getSum(this.totalProject, numsParent);
-
     } else {//delete values unselected to array
       const index = checkArray.controls.findIndex(x => x.value === event.target.value);
       checkArray.removeAt(index);
-      if (checkArray.length === 0) {
-        this.totalProject = 0;
-      }else{
-        this.totalProject = this.totalProject- numsParent-this.panellnums;
-  
-      console.log(this.totalProject);
-      }
       if (event.target.id === "web") {
-
-        this.panellnums = 0;
-        console.log(this.totalProject - this.panellnums);
-        this.totalProject = this.totalService.getSubstraction(this.totalProject, this.panellnums);
-        console.log(this.totalProject);
+        this.totalService.partialTotal = 0;
       }
     }
 
@@ -89,6 +72,12 @@ export class HomeComponent implements OnInit {
 
     //if web id is selected
     this.showPanellChild(event);
+  }
+
+  sumProject() {
+    if (!isNaN(this.totalService.getPartialSum()) && !isNaN(this.totalBudget)) 
+    return this.totalService.getPartialSum() + this.totalBudget;
+    else return 0;
   }
 
 

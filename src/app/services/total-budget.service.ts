@@ -4,19 +4,19 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class TotalBudgetService {
-  total!:number;
+  partialTotal!:number;
 
   constructor() { 
-    this.total=0;
+    this.partialTotal=0;
   }
 
  
   partialBudget(num1:number,num2:number){
-    this.total = num1 * num2*30;
+    this.partialTotal = num1 * num2*30;
   }
 
   getPartialSum():number{
-    return this.total;
+    return this.partialTotal;
   }
 
   getSum(num1:number,num2:number){
