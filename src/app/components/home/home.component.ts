@@ -1,20 +1,20 @@
-import { Component, OnInit, AfterViewChecked,ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, FormArray } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 import { TotalBudgetService } from 'src/app/services/total-budget.service';
 
 @Component({
-  selector: 'app-home', 
+  selector: 'app-home',
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
- 
+
 })
-export class HomeComponent implements OnInit, AfterViewChecked {
+export class HomeComponent implements OnInit {
 
   form!: FormGroup;
   title = new BehaviorSubject(0);
- 
+
   showPanell: boolean = false;
 
   total!: string[];
@@ -22,9 +22,9 @@ export class HomeComponent implements OnInit, AfterViewChecked {
   result!: number;
   totalBudget!: number;
 
-  totalWeb!: number;
+  totalWeb: number = 0;
 
-  b!:number;
+  panellnums!: number;
 
   Data: Array<any> = [
     { id: 'web', name: 'Una pàgina web (500€)', value: 500 },
@@ -32,7 +32,7 @@ export class HomeComponent implements OnInit, AfterViewChecked {
     { id: 'ads', name: 'Una campanya de Google Ads (200€)', value: 200 }
   ];
 
-  constructor(private formBuilder: FormBuilder,private totalService: TotalBudgetService) {
+  constructor(private formBuilder: FormBuilder, private totalService: TotalBudgetService) {
     this.form = this.formBuilder.group({
       checkArray: this.formBuilder.array([])
     });
@@ -42,37 +42,17 @@ export class HomeComponent implements OnInit, AfterViewChecked {
   getTotal($initialTotal: number) {
     console.log("$e  " + $initialTotal);
     console.log("res+e  " + (this.result + $initialTotal));
-    console.log("B   " + this.b);
+    console.log("B   " + this.panellnums);
 
-     //this.totalWeb = this.result + $initialTotal;
-     this.totalWeb = this.totalService.getTotalSum();
-
-    console.log("B   " + this.b);
+    //this.totalWeb = this.result + $initialTotal;
+    this.totalWeb = this.totalService.getTotalSum() + this.result;
+    this.panellnums = $initialTotal;
+    console.log("B   " + this.panellnums);
     console.log("TOTAL WEB    " + this.totalWeb);
     console.log($initialTotal);
-  
-    
   }
 
-
-//NG0100: Expression has changed after it was checked
-//https://www.mattspaulding.org/The-Curious-Case-of-Angular-and-the-Infinite-Change-Event-Loop/
-
-  ngAfterViewInit() {
-   //Promise.resolve().then(()=>this.totalWeb = this.result + this.b);
-   /*setTimeout(()=>{
-    this.totalWeb = this.result + this.b;
-   },0);*/
-   console.log(this.result + this.b);
-   console.log(this.totalWeb);
-  }
-
-  ngAfterViewChecked() {
-    console.count("ngAfterViewChecked");
-    return this.totalWeb;
-  }
-
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   /**
    * Function that gets values selected and puts them into a new array
@@ -85,10 +65,29 @@ export class HomeComponent implements OnInit, AfterViewChecked {
     if (event.target.checked) {//add values selected to array
       checkArray.push(new FormControl(event.target.value));
 
+      let num: string = event.target.value;
+      console.log(parseInt(num));
+      let nums: number = parseInt(num);
+      console.log(this.result);
+      console.log(event.target.value);
+      console.log(this.totalWeb);
+      this.totalWeb = this.totalWeb + nums;
+      console.log(this.totalWeb);
+
     } else {//delete values unselected to array
       const index = checkArray.controls.findIndex(x => x.value === event.target.value);
       checkArray.removeAt(index);
+      let num: string = event.target.value;
+      console.log(parseInt(num));
+      let nums: number = parseInt(num);
+      this.totalWeb = this.totalWeb - nums;
+
+      if (event.target.id === "web") {
+        this.totalWeb =  this.totalWeb - this.panellnums;
+      }
     }
+
+
 
 
     //add values to new array
