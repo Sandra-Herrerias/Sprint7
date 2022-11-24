@@ -44,11 +44,11 @@ export class PanellComponent implements OnInit {
 
   minus($e: any) {
     if ($e.target.id == 'minusPage') {
-      if (this.numPage > 1) {
+      if (this.numPage >= 1) {
         this.numPage--;
       }
     } else if ($e.target.id == 'minusLang') {
-      if (this.numLang > 1) {
+      if (this.numLang >= 1) {
         this.numLang--;
       }
     }
