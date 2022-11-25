@@ -30,16 +30,28 @@ export class PanellComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void{}
+  ngOnInit(): void {
+    console.log(this.formPanell.value);
+    console.log(this.formPanell.value.numPage);
+    console.log(this.formPanell.value.numLang);
+  }
 
   plus($e: any) {
     if ($e.target.id == 'plusPage') {
       this.numPage++;
     } else if ($e.target.id == 'plusLang') {
       this.numLang++;
+    } else {
+      this.numPage = this.formPanell.value.numPage;
+      this.numLang = this.formPanell.value.numLang;
     }
     this.totalService.partialBudget(this.numPage, this.numLang);
     this.modifiedTotal.emit(this.totalService.getPartialSum());
+    console.log(this.formPanell.value);
+    console.log(this.formPanell.value.numPage);
+    console.log(this.formPanell.value.numLang);
+    console.log(this.numLang);
+    console.log(this.numPage);
   }
 
   minus($e: any) {
@@ -51,10 +63,17 @@ export class PanellComponent implements OnInit {
       if (this.numLang >= 1) {
         this.numLang--;
       }
+    } else {
+      this.numPage = this.formPanell.value.numPage;
+      this.numLang = this.formPanell.value.numLang;
     }
+    
     this.totalService.partialBudget(this.numPage, this.numLang);
     this.modifiedTotal.emit(this.totalService.getPartialSum());
+    console.log(this.formPanell.value);
+    console.log(this.formPanell.value.numPage);
+    console.log(this.formPanell.value.numLang);
+    console.log(this.numLang);
+    console.log(this.numPage);
   }
-
-
 }
