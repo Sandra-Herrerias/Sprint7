@@ -8,6 +8,7 @@ import { HomeComponent } from './components/home/home.component';
 import { PanellComponent } from './components/panell/panell.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { TotalBudgetService } from './services/total-budget.service';
+import { PressupostListComponent } from './components/pressupost-list/pressupost-list.component';
 
 
 
@@ -16,7 +17,8 @@ import { TotalBudgetService } from './services/total-budget.service';
     AppComponent,
     HomeComponent,
     PanellComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    PressupostListComponent
   ],
   imports: [
     BrowserModule,
