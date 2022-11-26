@@ -40,13 +40,7 @@ export class HomeComponent implements OnInit {
   }
 
   getTotal($initialTotal: number) {
-
-    const basicInfo: FormGroup=  this.form.get("basicInfo") as FormGroup;
-    console.log(basicInfo.setValue);
-    console.log(typeof(basicInfo));
-    console.log(basicInfo.getRawValue);
-    return this.panellnums = $initialTotal;
-    
+    return this.panellnums = $initialTotal; 
   }
 
   ngOnInit(): void {}

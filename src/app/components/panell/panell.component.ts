@@ -30,11 +30,7 @@ export class PanellComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    console.log(this.formPanell.value);
-    console.log(this.formPanell.value.numPage);
-    console.log(this.formPanell.value.numLang);
-  }
+  ngOnInit(): void {}
 
   plus($e: any) {
     if ($e.target.id == 'plusPage') {
@@ -47,11 +43,6 @@ export class PanellComponent implements OnInit {
     }
     this.totalService.partialBudget(this.numPage, this.numLang);
     this.modifiedTotal.emit(this.totalService.getPartialSum());
-    console.log(this.formPanell.value);
-    console.log(this.formPanell.value.numPage);
-    console.log(this.formPanell.value.numLang);
-    console.log(this.numLang);
-    console.log(this.numPage);
   }
 
   minus($e: any) {
@@ -70,10 +61,11 @@ export class PanellComponent implements OnInit {
     
     this.totalService.partialBudget(this.numPage, this.numLang);
     this.modifiedTotal.emit(this.totalService.getPartialSum());
-    console.log(this.formPanell.value);
-    console.log(this.formPanell.value.numPage);
-    console.log(this.formPanell.value.numLang);
-    console.log(this.numLang);
-    console.log(this.numPage);
+  }
+
+
+  onChange(){
+    this.totalService.partialBudget(this.numPage, this.numLang);
+    this.modifiedTotal.emit(this.totalService.getPartialSum());
   }
 }
