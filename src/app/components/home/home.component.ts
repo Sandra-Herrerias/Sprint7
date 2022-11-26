@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, FormArray } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { TotalBudgetService } from 'src/app/services/total-budget.service';
 
 @Component({
@@ -31,18 +31,16 @@ export class HomeComponent implements OnInit {
     { id: 'ads', name: 'Una campanya de Google Ads (200€)', value: 200 }
   ];
 
+
   constructor(private formBuilder: FormBuilder, private totalService: TotalBudgetService) {
     this.form = this.formBuilder.group({
-      checkArray: this.formBuilder.array([])
-    });
- this.form = new FormGroup({
-      budget_name: new FormControl(''),
-      user_name: new FormControl(''),
-      services_selected: new FormControl(''),
-      total_price: new FormControl(''),
-      date: new FormControl('')
+      checkArray: this.formBuilder.array([]),
+      budget_name: ['', [Validators.required]],
+      user_name: ['', [Validators.required]]
     });
   }
+
+
 
   getTotal($initialTotal: number) {
     return this.panellnums = $initialTotal; 
@@ -55,7 +53,7 @@ export class HomeComponent implements OnInit {
     console.log('budget_name', form.value.budget_name);
     console.log('user_name', form.value.user_name);
     console.log('services_selected', form.value.services_selected);
-    console.log('total_price', form.value.total_price);
+    console.log('total_price', this.sumProject());
  
   }
   /**
