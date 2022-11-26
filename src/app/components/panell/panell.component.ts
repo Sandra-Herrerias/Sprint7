@@ -15,7 +15,7 @@ export class PanellComponent implements OnInit {
 
   numPage: number = 0;
   numLang: number = 0;
-  total!: number;
+  total: number = this.totalService.getPartialSum();
 
   regexOnlyNumbers = "[0-9]+";
 

@@ -9,6 +9,10 @@
                 <input name="numPage" formControlName="numPage" (change)="onChange()" class="borderBlack  form-control-color" type="text" [value]="numPage" placeholder="0" [(ngModel)]="numPage">
                 <button id="minusPage" class="btnSpinner mx-1" type="button" (click)="minus($event)"> <i id="minusPage"
             class="fa fa-minus"></i></button>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-warning btn-circle" data-bs-toggle="modal" data-bs-target="#modalPag">
+        <i class="fa fa-light fa-circle-info fa-2xl"></i>
+  </button>
             </div>
 
             <div class="form-group">
@@ -18,7 +22,49 @@
                 <input name="numLang" formControlName="numLang" (change)="onChange()" class="borderBlack  form-control-color" type="text" [value]="numLang" placeholder="0" [(ngModel)]="numLang">
                 <button id="minusLang" class="btnSpinner mx-1" type="button" (click)="minus($event)"> <i id="minusLang"
             class="fa fa-minus"></i></button>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-warning btn-circle" data-bs-toggle="modal" data-bs-target="#modalLang">
+        <i class="fa fa-light fa-circle-info fa-2xl"></i>
+  </button>
             </div>
         </form>
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalPag" tabindex="-1" aria-labelledby="modalPagLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalPagLabel">Número de pàgines</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center"> El seu lloc web tindrà
+                        <h3>{{numPage}}</h3> pàgines</div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="modalLang" tabindex="-1" aria-labelledby="modalLangLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLangLabel">Número d'idiomes</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center"> El seu lloc web tindrà
+                        <h3>{{numLang}}</h3> idiomes</div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
