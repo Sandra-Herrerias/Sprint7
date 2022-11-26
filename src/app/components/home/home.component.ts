@@ -35,7 +35,13 @@ export class HomeComponent implements OnInit {
     this.form = this.formBuilder.group({
       checkArray: this.formBuilder.array([])
     });
-
+ this.form = new FormGroup({
+      budget_name: new FormControl(''),
+      user_name: new FormControl(''),
+      services_selected: new FormControl(''),
+      total_price: new FormControl(''),
+      date: new FormControl('')
+    });
   }
 
   getTotal($initialTotal: number) {
@@ -44,6 +50,14 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  onSubmit(form: FormGroup) {
+    console.log('Valid?', form.valid); // true or false
+    console.log('budget_name', form.value.budget_name);
+    console.log('user_name', form.value.user_name);
+    console.log('services_selected', form.value.services_selected);
+    console.log('total_price', form.value.total_price);
+ 
+  }
   /**
    * Function that gets values selected and puts them into a new array
    * @param event 
@@ -119,5 +133,8 @@ export class HomeComponent implements OnInit {
       this.showPanell = false;
     }
   }
+
+
+
 
 }

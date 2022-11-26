@@ -2,7 +2,8 @@
     padding: 0.3rem;
 }
 
-a:hover {
+a:hover,
+.colorHover:hover {
     color: orange;
 }
 
