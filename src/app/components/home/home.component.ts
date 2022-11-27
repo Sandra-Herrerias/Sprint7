@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, FormArray, Validators } from '@angular/forms';
+import { Budget } from 'src/app/models/budget';
 import { TotalBudgetService } from 'src/app/services/total-budget.service';
 
 @Component({
@@ -24,12 +25,15 @@ export class HomeComponent implements OnInit {
   totalProject: number = 0;
 
   panellnums!: number;
+  newBudget = new Budget;
 
   Data: Array<any> = [
     { id: 'web', name: 'Una pàgina web (500€)', value: 500 },
     { id: 'seo', name: 'Una consultoria SEO (300€)', value: 300 },
     { id: 'ads', name: 'Una campanya de Google Ads (200€)', value: 200 }
   ];
+
+  servicesChecked:Array<string> = [];
 
 
   constructor(private formBuilder: FormBuilder, private totalService: TotalBudgetService) {
@@ -50,11 +54,21 @@ export class HomeComponent implements OnInit {
 
   onSubmit(form: FormGroup) {
     console.log('Valid?', form.valid); // true or false
-    console.log('budget_name', form.value.budget_name);
-    console.log('user_name', form.value.user_name);
-    console.log('services_selected', form.value.services_selected);
-    console.log('total_price', this.sumProject());
- 
+    console.log('budget_name', );
+    console.log('user_name', );
+    console.log('services_selected', );
+    console.log('total_price', );
+
+
+  this.newBudget = new Budget(
+  form.value.budget_name,
+  form.value.user_name,
+  this.servicesChecked,
+  this.sumProject(),
+  new Date
+  );
+
+  console.log(this.newBudget);
   }
   /**
    * Function that gets values selected and puts them into a new array
@@ -66,10 +80,16 @@ export class HomeComponent implements OnInit {
  
     if (event.target.checked) {//add values selected to array
       checkArray.push(new FormControl(event.target.value));
+      this.servicesChecked.push(event.target.name);
 
     } else {//delete values unselected to array
       const index = checkArray.controls.findIndex(x => x.value === event.target.value);
       checkArray.removeAt(index);
+
+      this.servicesChecked.forEach((element,index)=>{
+        if(element==event.target.name) this.servicesChecked.splice(index,1); 
+     });
+
       if (event.target.id === "web") {
         this.totalService.partialTotal = 0;
       }
@@ -131,8 +151,4 @@ export class HomeComponent implements OnInit {
       this.showPanell = false;
     }
   }
-
-
-
-
 }

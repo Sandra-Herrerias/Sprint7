@@ -5,7 +5,7 @@
             <div class="form-group">
                 <div *ngFor="let data of Data; let i=index">
                     <label class="paddingInput">
-            <input [id]="data.id" type="checkbox" [value]="data.value" (change)="checkValue($event)" />
+            <input [id]="data.id" type="checkbox" [value]="data.value" [name]="data.name" (change)="checkValue($event)" />
             {{data.name}}
           </label>
                     <div *ngIf="data.id == 'web' && showPanell">
