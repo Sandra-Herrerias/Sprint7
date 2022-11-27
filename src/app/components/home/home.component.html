@@ -25,11 +25,15 @@
                 <input type="text" class="form-control" name="user_name" formControlName="user_name" />
             </div>
 
-            <button class="btn backColorBtn mt-3 textBtn fw-bolder colorHover" type="submit">Enviar</button>
+            <button class="btn backColorBtn mt-3 textBtn fw-bolder colorHover" type="submit" onclick="return confirm('Està segura de crear aquest pressupost?')">Enviar</button>
         </form>
         <button class="btn backColorBtn mt-3">
       <a class="textBtn fw-bolder" routerLink="/welcome" routerLinkActive="active" ariaCurrentWhenActive="page">Go
         Back</a>
     </button>
     </div>
+</div>
+
+<div>
+    <app-pressupost-list></app-pressupost-list>
 </div>
