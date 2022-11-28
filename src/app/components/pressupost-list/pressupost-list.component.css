@@ -1,0 +1,45 @@
+
+.borderDivRight {
+    border-top-left-radius: 15px 140px;
+    border-top-right-radius: 4px 130px;
+    border-bottom-left-radius: 110px 10px;
+    border-bottom-right-radius: 120px 4px;
+    display: block;
+    position: relative;
+    border: solid 3px orange;
+    padding: 40px 60px;
+    max-width: 800px;
+    width: 100%;
+    font-size: 17px;
+    line-height: 28px;
+    transform: rotate(-1deg);
+    box-shadow: 3px 15px 8px -10px rgba(0, 0, 0, 0.3);
+    transition: all 0.13s ease-in;
+  }
+  
+  .right {
+    max-height: 36rem;
+    overflow-y: auto;
+  }
+  
+::-webkit-scrollbar {
+    width: 15px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 5px;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: orange;
+    border-radius: 5px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #8b72b6;
+  }
+  
