@@ -71,12 +71,10 @@ export class HomeComponent implements OnInit {
         new Date
       ); 
 
-      alert("Pressupost creat correctament");
-      this.budgetsStored.push(this.newBudget);
-      ;
-      console.log(this.budgetsStored);
-      this.totalService.setBudgetsStored(this.budgetsStored)
-      this.totalService.getBudgetsStored();
+      alert("Pressupost creat correctament");  
+      this.totalService.addNewBudget(this.newBudget);
+      console.log(this.newBudget);
+
     } else {
       alert("Pressupost no creat, empleni la informació necessaria");
     }

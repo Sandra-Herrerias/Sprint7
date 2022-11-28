@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { take } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { Budget } from 'src/app/models/budget';
 import { TotalBudgetService } from 'src/app/services/total-budget.service';
 
 @Component({
@@ -9,12 +10,17 @@ import { TotalBudgetService } from 'src/app/services/total-budget.service';
 })
 export class PressupostListComponent {
 
+  budgets$!:Observable<Budget[]>;
+  budgetsStored!:Budget[];
 
   constructor(
     private totalService: TotalBudgetService
   ) { }
 
   ngOnInit() {
+    this.budgets$ = this.totalService.getBudgets$();
+    this.budgets$.subscribe(budgetsStored => this.budgetsStored = budgetsStored);
+    
   }
 
 

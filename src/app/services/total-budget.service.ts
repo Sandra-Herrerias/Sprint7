@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
+import { Subject } from 'rxjs';
 import { Budget } from '../models/budget';
 
 @Injectable({
@@ -8,6 +9,8 @@ import { Budget } from '../models/budget';
 export class TotalBudgetService {
   partialTotal!:number;
   budgetsStored!:Budget[];
+
+  private allBudgets$ = new Subject<Budget[]>();
 
   constructor() { 
     this.partialTotal=0;
@@ -31,12 +34,13 @@ export class TotalBudgetService {
     return num1 - num2;
   }
 
-  setBudgetsStored(budgetsStored: Budget[]){
-    return this.budgetsStored = budgetsStored;
+  addNewBudget(budget:Budget){
+    this.budgetsStored.push(budget);
+    this.allBudgets$.next(this.budgetsStored);
   }
 
-  getBudgetsStored(): Budget[]{
-    return this.budgetsStored;
+  getBudgets$(): Observable<Budget[]>{
+    return this.allBudgets$.asObservable();
   }
- 
+
 }
