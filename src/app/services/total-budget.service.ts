@@ -10,11 +10,14 @@ export class TotalBudgetService {
   partialTotal!:number;
   budgetsStored!:Budget[];
 
+
   private allBudgets$ = new Subject<Budget[]>();
 
   constructor() { 
     this.partialTotal=0;
     this.budgetsStored = [];
+
+   
   }
 
  
@@ -37,10 +40,14 @@ export class TotalBudgetService {
   addNewBudget(budget:Budget){
     this.budgetsStored.push(budget);
     this.allBudgets$.next(this.budgetsStored);
+    console.log(this.budgetsStored);
   }
 
   getBudgets$(): Observable<Budget[]>{
     return this.allBudgets$.asObservable();
   }
+
+
+
 
 }

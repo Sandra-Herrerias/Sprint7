@@ -1,6 +1,8 @@
 export class Budget {
 
     //Properties
+    private _id!:number;
+    private static _id_aux:number = 0;
     private _budget_name!: string;
     private _user_name!: string;
     private _services_selected!: string[];
@@ -17,6 +19,8 @@ export class Budget {
      */
     constructor(budget_name?: string, user_name?: string, services_selected?: string[], total_price?: number, date?: Date) {
 
+        this._id = Budget._id_aux;
+        Budget._id_aux++;
         if (budget_name != undefined) {
             this._budget_name = budget_name;
         }
@@ -33,6 +37,15 @@ export class Budget {
             this._date = date;
         }
     }
+
+    /**
+     * Getter budget_name
+     * @return {number}
+     */
+     public get id(): number {
+        return this._id;
+    }
+
 
     /**
      * Getter budget_name

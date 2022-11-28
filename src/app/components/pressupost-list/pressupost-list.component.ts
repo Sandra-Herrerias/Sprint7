@@ -13,23 +13,33 @@ export class PressupostListComponent {
 
   budgets$!:Observable<Budget[]>;
   budgetsStored!:Array <Budget>;
+  myClonedObject!:Array <Budget>;
 
   sortName!: string;
   sortValue!: string;
  
   constructor(
     private totalService: TotalBudgetService
-  ) { }
+  ) {  }
 
   ngOnInit() {
     this.budgets$ = this.totalService.getBudgets$();
-    this.budgets$.subscribe(budgetsStored => this.budgetsStored = budgetsStored); 
+    this.budgets$.subscribe(budgetsStored => this.budgetsStored = budgetsStored);  
+
+    this.myClonedObject = Object.assign({}, this.budgetsStored );
   }
 
 
-  sort(sortName: string, value: string): void {
-    this.sortName = sortName;
-    this.sortValue = value;
-    
-  }
+getBudgetByName(): void {
+  this.budgetsStored.sort((a,b) => a.user_name < b.user_name ? -1:1 );
+}
+
+getBudgetByDate(){
+  this.budgetsStored.sort((a, b) => {return <any>new Date(b.date) - <any>new Date(a.date);});
+}
+
+getbackOriginalData(){  
+  this.budgetsStored.sort((a,b) => a.id < b.id ? -1:1 );
+}
+
 }
