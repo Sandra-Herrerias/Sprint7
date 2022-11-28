@@ -1,48 +1,47 @@
 .box {
-    display: flex;
-    flex-flow: row nowrap;
-  }
+  display: flex;
+  flex-flow: row nowrap;
+}
 
 .paddingInput {
-    padding: 0.3rem;
+  padding: 0.3rem;
 }
 
 a:hover,
 .colorHover:hover {
-    color: orange;
+  color: orange;
 }
 
 .borderDiv {
-    border-top-left-radius: 37px 140px;
-    border-top-right-radius: 23px 130px;
-    border-bottom-left-radius: 110px 19px;
-    border-bottom-right-radius: 120px 24px;
-    display: block;
-    position: relative;
-    border: solid 3px #212529;
-    padding: 40px 60px;
-    max-width: 800px;
-    width: 100%;
-    font-size: 17px;
-    line-height: 28px;
-    transform: rotate(-1deg);
-    box-shadow: 3px 15px 8px -10px rgba(0, 0, 0, 0.3);
-    transition: all 0.13s ease-in;
+  border-top-left-radius: 37px 140px;
+  border-top-right-radius: 23px 130px;
+  border-bottom-left-radius: 110px 19px;
+  border-bottom-right-radius: 120px 24px;
+  display: block;
+  position: relative;
+  border: solid 3px #212529;
+  padding: 40px 60px;
+  max-width: 800px;
+  width: 100%;
+  font-size: 17px;
+  line-height: 28px;
+  transform: rotate(-1deg);
+  box-shadow: 3px 15px 8px -10px rgba(0, 0, 0, 0.3);
+  transition: all 0.13s ease-in;
 }
 
 .right {
-    border: solid 3px orange;
+  border: solid 3px orange; 
+  max-height: 36rem; 
+  overflow-y: auto;
 }
 
-.chat-body{
+.left {
+  max-height: 36rem;
+}
 
-   
-    overflow: auto;
-
+@media (max-width: 992px) {
+  .box {
+    flex-wrap: wrap;
   }
-
-  @media (max-width: 992px) { 
-.box{
-    flex-wrap: wrap
 }
-   }
