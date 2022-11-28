@@ -1,13 +1,16 @@
-<div class="container d-flex justify-content-center mt-5">
-    <div class="wrapper">
-        <p class="pt-3">¿Qué quieres hacer?</p>
+<div class="container justify-content-center mt-5">
+    <div class="wrapper box">
+
+    <div class="borderDiv left">
+      
+             <p class="pt-3">¿Qué quieres hacer?</p>
         <form #form1="ngForm" [formGroup]="form" method="get" (ngSubmit)="onSubmit(form)">
             <div class="form-group">
                 <div *ngFor="let data of Data; let i=index">
                     <label class="paddingInput">
-            <input [id]="data.id" type="checkbox" [value]="data.value" [name]="data.name" (change)="checkValue($event)" />
-            {{data.name}}
-          </label>
+                    <input [id]="data.id" type="checkbox" [value]="data.value" [name]="data.name" (change)="checkValue($event)" />
+                    {{data.name}}
+                    </label>
                     <div *ngIf="data.id == 'web' && showPanell">
                         <app-panell (modifiedTotal)="getTotal($event)"></app-panell>
                     </div>
@@ -24,16 +27,16 @@
                 <label class="form-label" for="user_name">Nom client/a: </label>
                 <input type="text" class="form-control" name="user_name" formControlName="user_name" />
             </div>
-
             <button class="btn backColorBtn mt-3 textBtn fw-bolder colorHover" type="submit" onclick="return confirm('Està segura de crear aquest pressupost?')">Enviar</button>
         </form>
         <button class="btn backColorBtn mt-3">
-      <a class="textBtn fw-bolder" routerLink="/welcome" routerLinkActive="active" ariaCurrentWhenActive="page">Go
-        Back</a>
-    </button>
+            <a class="textBtn fw-bolder" routerLink="/welcome" routerLinkActive="active" ariaCurrentWhenActive="page">Go
+            Back</a>
+        </button>
+      
+    </div> 
+     <div class="chat-body borderDiv right m-3">
+            <app-pressupost-list></app-pressupost-list>
+        </div>
     </div>
-</div>
-
-<div>
-    <app-pressupost-list></app-pressupost-list>
 </div>

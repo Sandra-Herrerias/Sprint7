@@ -1,5 +1,6 @@
 <table class="table">
-    <thead *ngIf="this.budgetsStored != null">
+  <!--  *ngIf="this.budgetsStored != null"  -->
+    <thead >
         <tr>
           <th scope="col"></th>
           <th scope="col">Nom pressupost</th>
@@ -14,9 +15,9 @@
         <th scope="row">{{i+1}}</th>
         <th scope="col">{{item.budget_name}}</th>
         <th scope="col">{{item.user_name}}</th>
-        <th scope="col">{{item.services_selected }}</th>
-        <th scope="col">{{item.total_price }}€</th>
-        <th scope="col">{{item.date }}</th>
+        <th scope="col">{{item.services_selected}}</th>
+        <th scope="col">{{item.total_price}}€</th>
+        <th scope="col">{{item.date}}</th>
     </tr>
 </tbody>
 </table>

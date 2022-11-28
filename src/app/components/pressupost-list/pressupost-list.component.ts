@@ -8,6 +8,7 @@ import { TotalBudgetService } from 'src/app/services/total-budget.service';
   templateUrl: './pressupost-list.component.html',
   styleUrls: ['./pressupost-list.component.css']
 })
+
 export class PressupostListComponent {
 
   budgets$!:Observable<Budget[]>;

@@ -1,3 +1,8 @@
+.box {
+    display: flex;
+    flex-flow: row nowrap;
+  }
+
 .paddingInput {
     padding: 0.3rem;
 }
@@ -7,7 +12,7 @@ a:hover,
     color: orange;
 }
 
-.wrapper {
+.borderDiv {
     border-top-left-radius: 37px 140px;
     border-top-right-radius: 23px 130px;
     border-bottom-left-radius: 110px 19px;
@@ -25,11 +30,19 @@ a:hover,
     transition: all 0.13s ease-in;
 }
 
-.wrapper:hover {
-    transform: translateY(-10px) rotate(1deg);
-    box-shadow: 3px 15px 8px -10px rgba(0, 0, 0, 0.3);
+.right {
+    border: solid 3px orange;
 }
 
-.wrapper:hover .border {
-    transform: translateY(4px) rotate(-5deg);
+.chat-body{
+
+   
+    overflow: auto;
+
+  }
+
+  @media (max-width: 992px) { 
+.box{
+    flex-wrap: wrap
 }
+   }
