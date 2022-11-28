@@ -13,6 +13,9 @@ export class PressupostListComponent {
 
   budgets$!:Observable<Budget[]>;
   budgetsStored!:Array <Budget>;
+
+  sortName!: string;
+  sortValue!: string;
  
   constructor(
     private totalService: TotalBudgetService
@@ -21,5 +24,12 @@ export class PressupostListComponent {
   ngOnInit() {
     this.budgets$ = this.totalService.getBudgets$();
     this.budgets$.subscribe(budgetsStored => this.budgetsStored = budgetsStored); 
+  }
+
+
+  sort(sortName: string, value: string): void {
+    this.sortName = sortName;
+    this.sortValue = value;
+    
   }
 }

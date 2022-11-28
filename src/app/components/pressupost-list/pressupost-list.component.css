@@ -1,4 +1,3 @@
-
 .borderDivRight {
     border-top-left-radius: 15px 140px;
     border-top-right-radius: 4px 130px;
@@ -15,31 +14,42 @@
     transform: rotate(-1deg);
     box-shadow: 3px 15px 8px -10px rgba(0, 0, 0, 0.3);
     transition: all 0.13s ease-in;
-  }
-  
-  .right {
+}
+
+.right {
     max-height: 36rem;
     overflow-y: auto;
-  }
-  
+    text-align: center;
+}
+
 ::-webkit-scrollbar {
     width: 15px;
-  }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
+}
+
+
+/* Track */
+
+ ::-webkit-scrollbar-track {
     box-shadow: inset 0 0 5px grey;
     border-radius: 5px;
-  }
-  
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
+}
+
+
+/* Handle */
+
+ ::-webkit-scrollbar-thumb {
     background: orange;
     border-radius: 5px;
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
+}
+
+
+/* Handle on hover */
+
+ ::-webkit-scrollbar-thumb:hover {
     background: #8b72b6;
-  }
-  
+}
+
+a:hover,
+.colorHover:hover {
+    color: orange;
+}
