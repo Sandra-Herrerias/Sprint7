@@ -11,18 +11,14 @@ import { TotalBudgetService } from 'src/app/services/total-budget.service';
 export class PressupostListComponent {
 
   budgets$!:Observable<Budget[]>;
-  budgetsStored!:Budget[];
-
+  budgetsStored!:Array <Budget>;
+ 
   constructor(
     private totalService: TotalBudgetService
   ) { }
 
   ngOnInit() {
     this.budgets$ = this.totalService.getBudgets$();
-    this.budgets$.subscribe(budgetsStored => this.budgetsStored = budgetsStored);
-    
+    this.budgets$.subscribe(budgetsStored => this.budgetsStored = budgetsStored); 
   }
-
-
-
 }
