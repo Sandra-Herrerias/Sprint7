@@ -7,7 +7,7 @@ export class Budget {
     private _user_name!: string;
     private _services_selected!: string[];
     private _total_price!: number;
-    private _date!: Date;
+    private _date!: string;
 
     /**
      * 
@@ -15,9 +15,9 @@ export class Budget {
      * @param {string} user_name
      * @param {string[]} services_selected
      * @param {number} total_price
-     * @param {Date} date
+     * @param {string} date
      */
-    constructor(budget_name?: string, user_name?: string, services_selected?: string[], total_price?: number, date?: Date) {
+    constructor(budget_name?: string, user_name?: string, services_selected?: string[], total_price?: number, date?: string) {
 
         this._id = Budget._id_aux;
         Budget._id_aux++;
@@ -113,17 +113,17 @@ export class Budget {
 
     /**
     * Getter date
-    * @return {Date}
+    * @return {string}
     */
-    public get date(): Date {
+    public get date(): string {
         return this._date;
     }
 
     /**
      * Setter date
-     * @param {Date} value
+     * @param {string} value
      */
-    public set date(value: Date) {
+    public set date(value: string) {
         this._date = value;
     }
 }

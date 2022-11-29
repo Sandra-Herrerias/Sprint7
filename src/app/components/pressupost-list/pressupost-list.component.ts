@@ -31,15 +31,23 @@ export class PressupostListComponent {
 
 
 getBudgetByName(): void {
+  if(this.budgetsStored != null){
   this.budgetsStored.sort((a,b) => a.user_name < b.user_name ? -1:1 );
+  }
+  
 }
 
 getBudgetByDate(){
-  this.budgetsStored.sort((a, b) => {return <any>new Date(b.date) - <any>new Date(a.date);});
+  if(this.budgetsStored != null){
+  //this.budgetsStored.sort((a, b) => {return <any>new Date(b.date) - <any>new Date(a.date);});
+  this.budgetsStored.sort((a, b) => b.date < a.date ? -1:1);
+  }
 }
 
 getbackOriginalData(){  
+  if(this.budgetsStored != null){
   this.budgetsStored.sort((a,b) => a.id < b.id ? -1:1 );
+  }
 }
 
 }

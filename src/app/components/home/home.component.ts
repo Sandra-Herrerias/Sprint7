@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, EventEmitter, Output } from
 import { FormGroup, FormControl, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { Budget } from 'src/app/models/budget';
 import { TotalBudgetService } from 'src/app/services/total-budget.service';
-
+import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -56,7 +56,9 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void { }
 
   onSubmit(form: FormGroup) {
-
+    let today = new Date(); 
+    let date = today.toLocaleString("es-ES");
+    console.log( );
     //create array without reference
     const clonedArray: Array<string> = [];
     this.servicesChecked.forEach(val => clonedArray.push(val));
@@ -68,7 +70,7 @@ export class HomeComponent implements OnInit {
         form.value.user_name,
         clonedArray,
         this.sumProject(),
-        new Date
+        date
       ); 
 
       alert("Pressupost creat correctament");  
