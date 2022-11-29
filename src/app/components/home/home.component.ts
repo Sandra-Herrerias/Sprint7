@@ -15,6 +15,7 @@ import { DatePipe } from '@angular/common';
 export class HomeComponent implements OnInit {
 
 
+  id!: number;
 
   form!: FormGroup;
 
@@ -27,8 +28,8 @@ export class HomeComponent implements OnInit {
 
   totalProject: number = 0;
 
-  panellnums!: number;  
-  
+  panellnums!: number;
+
   servicesChecked: Array<string> = [];
   newBudget = new Budget;
   budgetsStored: Budget[] = [];
@@ -39,7 +40,7 @@ export class HomeComponent implements OnInit {
     { id: 'ads', name: 'Una campanya de Google Ads (200€)', value: 200 }
   ];
 
-  constructor(private formBuilder: FormBuilder, 
+  constructor(private formBuilder: FormBuilder,
     private totalService: TotalBudgetService) {
     this.form = this.formBuilder.group({
       checkArray: this.formBuilder.array([]),
@@ -56,26 +57,59 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void { }
 
   onSubmit(form: FormGroup) {
-    let today = new Date(); 
+    let today = new Date();
     let date = today.toLocaleString("es-ES");
-    console.log( );
+
     //create array without reference
     const clonedArray: Array<string> = [];
     this.servicesChecked.forEach(val => clonedArray.push(val));
 
+
+
     //validate form is not empty
     if (form.valid && this.servicesChecked.length != 0 && this.sumProject() != 0) {
-      this.newBudget = new Budget(
-        form.value.budget_name,
-        form.value.user_name,
-        clonedArray,
-        this.sumProject(),
-        date
-      ); 
 
-      alert("Pressupost creat correctament");  
-      this.totalService.addNewBudget(this.newBudget);
+      this.budgetsStored = JSON.parse(localStorage.getItem('budgets')!);
+      console.log(JSON.stringify(this.budgetsStored));
+
+      if (this.budgetsStored == null) {
+        this.id = 1;
+
+        this.newBudget = new Budget(
+          this.id,
+          form.value.budget_name,
+          form.value.user_name,
+          clonedArray,
+          this.sumProject(),
+          date
+        ); 
+        
+        alert("Pressupost creat correctament");
+        console.log("first before" + this.id);
+        this.totalService.addNewBudget(this.newBudget);
+        console.log("first after" + this.id);
+
+      } else {
+
+        this.newBudget = new Budget(
+          this.id++,
+          form.value.budget_name,
+          form.value.user_name,
+          clonedArray,
+          this.sumProject(),
+          date
+        );
+        
+        alert("Pressupost creat correctament");
+        console.log("not first before" + this.id);
+        this.totalService.addNewBudget(this.newBudget);
+        console.log("not first after" + this.id);
+      }
+
+      console.log(this.budgetsStored);
       console.log(this.newBudget);
+      this.budgetsStored = JSON.parse(localStorage.getItem('budgets')!);
+      console.log("HOME" + JSON.stringify(this.budgetsStored));
 
     } else {
       alert("Pressupost no creat, empleni la informació necessaria");
@@ -161,5 +195,8 @@ export class HomeComponent implements OnInit {
     } else if (event.target.id == 'web' && !event.target.checked) {
       this.showPanell = false;
     }
+  }
+  clear() {
+    localStorage.removeItem('budgets');
   }
 }

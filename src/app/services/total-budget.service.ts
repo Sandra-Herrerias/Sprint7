@@ -38,9 +38,15 @@ export class TotalBudgetService {
   }
 
   addNewBudget(budget:Budget){
+   
+   
     this.budgetsStored.push(budget);
     this.allBudgets$.next(this.budgetsStored);
     console.log(this.budgetsStored);
+    localStorage.setItem('budgets',JSON.stringify(this.budgetsStored)); 
+    this.budgetsStored = JSON.parse(localStorage.getItem('budgets')!);
+
+    console.log("SERVICE" + JSON.stringify(this.budgetsStored));
   }
 
   getBudgets$(): Observable<Budget[]>{

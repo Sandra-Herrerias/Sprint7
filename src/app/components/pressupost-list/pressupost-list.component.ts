@@ -20,13 +20,15 @@ export class PressupostListComponent {
  
   constructor(
     private totalService: TotalBudgetService
-  ) {  }
+  ) {}
 
   ngOnInit() {
     this.budgets$ = this.totalService.getBudgets$();
     this.budgets$.subscribe(budgetsStored => this.budgetsStored = budgetsStored);  
-
+    console.log(this.budgetsStored);
     this.myClonedObject = Object.assign({}, this.budgetsStored );
+
+    console.log(this.myClonedObject);
   }
 
 
