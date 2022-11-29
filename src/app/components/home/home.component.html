@@ -29,7 +29,7 @@
                     <label class="form-label" for="user_name">Nom client/a: </label>
                     <input type="text" class="form-control" name="user_name" formControlName="user_name" />
                 </div>
-                <button class="btn backColorBtn mt-3 textBtn fw-bolder colorHover" type="submit" onclick="return confirm('Està segura de crear aquest pressupost?')">Enviar</button>
+                <button class="btn backColorBtn mt-3 textBtn fw-bolder colorHover" type="submit">Enviar</button>
             </form>
             <button class="btn backColorBtn mt-3">
             <a class="textBtn fw-bolder" routerLink="/welcome" routerLinkActive="active" ariaCurrentWhenActive="page">Go
@@ -41,4 +41,6 @@
             <app-pressupost-list></app-pressupost-list>
         </div>
     </div>
+
+    <!-- onclick="return confirm('Està segura de crear aquest pressupost?')"-->
 </div>

@@ -13,10 +13,6 @@ import { DatePipe } from '@angular/common';
 
 })
 export class HomeComponent implements OnInit {
-
-
-  id!: number;
-
   form!: FormGroup;
 
   showPanell: boolean = false;
@@ -31,8 +27,7 @@ export class HomeComponent implements OnInit {
   panellnums!: number;
 
   servicesChecked: Array<string> = [];
-  newBudget = new Budget;
-  budgetsStored: Budget[] = [];
+ 
 
   Data: Array<any> = [
     { id: 'web', name: 'Una pàgina web (500€)', value: 500 },
@@ -64,55 +59,21 @@ export class HomeComponent implements OnInit {
     const clonedArray: Array<string> = [];
     this.servicesChecked.forEach(val => clonedArray.push(val));
 
-
-
     //validate form is not empty
     if (form.valid && this.servicesChecked.length != 0 && this.sumProject() != 0) {
 
-      this.budgetsStored = JSON.parse(localStorage.getItem('budgets')!);
-      console.log(JSON.stringify(this.budgetsStored));
-
-      if (this.budgetsStored == null) {
-        this.id = 1;
-
-        this.newBudget = new Budget(
-          this.id,
-          form.value.budget_name,
-          form.value.user_name,
-          clonedArray,
-          this.sumProject(),
-          date
-        ); 
-        
-        alert("Pressupost creat correctament");
-        console.log("first before" + this.id);
-        this.totalService.addNewBudget(this.newBudget);
-        console.log("first after" + this.id);
-
-      } else {
-
-        this.newBudget = new Budget(
-          this.id++,
-          form.value.budget_name,
-          form.value.user_name,
-          clonedArray,
-          this.sumProject(),
-          date
-        );
-        
-        alert("Pressupost creat correctament");
-        console.log("not first before" + this.id);
-        this.totalService.addNewBudget(this.newBudget);
-        console.log("not first after" + this.id);
-      }
-
-      console.log(this.budgetsStored);
-      console.log(this.newBudget);
-      this.budgetsStored = JSON.parse(localStorage.getItem('budgets')!);
-      console.log("HOME" + JSON.stringify(this.budgetsStored));
-
+      let newBudget = {
+        id:0,
+        budget_name: form.value.budget_name,
+        user_name: form.value.user_name,
+        services_selected: clonedArray,
+        total_price: this.sumProject(),
+        date: date
+      };
+      //alert("Pressupost creat correctament");
+      this.totalService.addNewBudget(newBudget);
     } else {
-      alert("Pressupost no creat, empleni la informació necessaria");
+      //alert("Pressupost no creat, empleni la informació necessaria");
     }
   }
   /**

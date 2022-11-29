@@ -1,5 +1,4 @@
-<!--  *ngIf="this.budgetsStored != null"   -->
-<div class="borderDivRight right m-3">
+<div class="borderDivRight right m-3" *ngIf="this.budgetsStored != null">
     <button class="btn backColorBtn my-3 textBtn fw-bolder colorHover" (click)="getBudgetByName()" type="submit">Sort name</button>
     <button class="btn backColorBtn my-3 textBtn fw-bolder colorHover m-3" (click)="getBudgetByDate()" type="submit">Sort date</button>
     <button class="btn backColorBtn my-3 textBtn fw-bolder colorHover" (click)="getbackOriginalData()" type="submit">Original sort</button>
