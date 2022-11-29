@@ -6,3 +6,15 @@
 .backColorBtn {
     background-color: #8b72b6;
 }
+
+.modal-backdrop {
+    display: none;
+    /* z-index: -1 !important;
+    opacity: 0.5 !important;*/
+}
+
+
+/*
+.modal {
+    position: inherit;
+}*/
