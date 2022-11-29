@@ -22,6 +22,7 @@ export class PressupostListComponent {
     private totalService: TotalBudgetService
   ) { }
 
+  filterBudget = '';
   ngOnInit() {
     this.budgets$ = this.totalService.getBudgets$();
     //this.budgets$.subscribe(budgetsStored => this.budgetsStored = budgetsStored);

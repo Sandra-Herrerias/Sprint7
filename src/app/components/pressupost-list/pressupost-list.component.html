@@ -1,4 +1,11 @@
 <div class="borderDivRight right m-3" *ngIf="this.budgetsStored != null">
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Cerca pressupost ..." name="filterBudget" [(ngModel)]="filterBudget" />
+            </div>
+        </div>
+    </div>
     <button class="btn backColorBtn my-3 textBtn fw-bolder colorHover" (click)="getBudgetByName()" type="submit">Sort name</button>
     <button class="btn backColorBtn my-3 textBtn fw-bolder colorHover m-3" (click)="getBudgetByDate()" type="submit">Sort date</button>
     <button class="btn backColorBtn my-3 textBtn fw-bolder colorHover" (click)="getbackOriginalData()" type="submit">Original sort</button>
@@ -14,7 +21,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let item of this.budgetsStored;let i=index;">
+            <tr *ngFor="let item of this.budgetsStored | filter:filterBudget">
                 <th scope="row">{{item.id}}</th>
                 <th scope="col">{{item.budget_name}}</th>
                 <th scope="col">{{item.user_name}}</th>

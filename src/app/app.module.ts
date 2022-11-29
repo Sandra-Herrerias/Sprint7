@@ -9,6 +9,7 @@ import { PanellComponent } from './components/panell/panell.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { TotalBudgetService } from './services/total-budget.service';
 import { PressupostListComponent } from './components/pressupost-list/pressupost-list.component';
+import { FilterPipe } from './pipes/filter.pipe';
 
 
 
@@ -18,7 +19,8 @@ import { PressupostListComponent } from './components/pressupost-list/pressupost
     HomeComponent,
     PanellComponent,
     WelcomeComponent,
-    PressupostListComponent
+    PressupostListComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,
