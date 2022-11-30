@@ -31,9 +31,9 @@ export class HomeComponent implements OnInit {
  
 
   Data: Array<any> = [
-    { id: 'web', name: 'Una pàgina web (500€)', value: 500 },
-    { id: 'seo', name: 'Una consultoria SEO (300€)', value: 300 },
-    { id: 'ads', name: 'Una campanya de Google Ads (200€)', value: 200 }
+    { id: 'web', name: 'Una pàgina web (500€)', value: 500,checked:false },
+    { id: 'seo', name: 'Una consultoria SEO (300€)', value: 300,checked:true },
+    { id: 'ads', name: 'Una campanya de Google Ads (200€)', value: 200,checked:false }
   ];
  
 
@@ -58,9 +58,12 @@ export class HomeComponent implements OnInit {
 
   public user_name:string = '';
   public budget_name:string = '';
-  public checkArray:string = '';
+  public checkArray:Array<string>= [];
+  public checkboxChecked:string= '';
+  checkedItems: any = [];
+
   ngOnInit(){
-    
+   
     this.form.valueChanges.subscribe((value) => {
       console.log('fetch data with new value', value);
 
@@ -69,13 +72,15 @@ export class HomeComponent implements OnInit {
         queryParams: {
           budget_name:value.budget_name,
           user_name: value.user_name,
-          checkArray: value.checkArray
+          checkArray: value.checkArray,
+          checkboxChecked:value.checkboxChecked
         },
         queryParamsHandling: 'merge',
       });
       console.log(urlTree.queryParams['budget_name']);
       console.log(urlTree.queryParams['user_name']);
       console.log(urlTree.queryParams['checkArray']);
+      console.log(urlTree.queryParams['checkboxChecked']);
   
       this.location.go(urlTree.toString());
     });
@@ -84,10 +89,19 @@ export class HomeComponent implements OnInit {
       queryParam => {
         this.user_name = queryParam['user_name'];
         this.budget_name = queryParam['budget_name'];
-        this.checkArray = queryParam['checkArray'];
-console.log(queryParam['budget_name']);
-console.log(queryParam['user_name']);
-console.log(queryParam['checkArray']);
+        this.checkArray= queryParam['checkArray'];
+        this.checkboxChecked = queryParam['checkboxChecked'];
+        console.log(queryParam['budget_name']);
+        console.log(this.user_name);
+        console.log(queryParam['checkArray']);
+        console.log(this.checkArray);
+        const myArray = this.route.snapshot.queryParamMap.get('checkArray');
+        console.log(this.checkboxChecked);
+        if (myArray === null) {
+          this.checkArray = new Array<string>();
+        } else {
+          this.checkArray = JSON.parse(myArray);
+        }
       }
     )
    }
