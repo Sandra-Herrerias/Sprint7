@@ -1,9 +1,8 @@
-import { Component, OnInit, ChangeDetectionStrategy, EventEmitter, Output } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, FormArray, Validators } from '@angular/forms';
-import { Budget } from 'src/app/models/budget';
+import { Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
+import { FormGroup, FormControl, FormBuilder, FormArray, Validators} from '@angular/forms';
 import { TotalBudgetService } from 'src/app/services/total-budget.service';
-import { DatePipe } from '@angular/common';
-
+import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-home',
@@ -27,6 +26,8 @@ export class HomeComponent implements OnInit {
   panellnums!: number;
 
   servicesChecked: Array<string> = [];
+
+  
  
 
   Data: Array<any> = [
@@ -34,13 +35,18 @@ export class HomeComponent implements OnInit {
     { id: 'seo', name: 'Una consultoria SEO (300€)', value: 300 },
     { id: 'ads', name: 'Una campanya de Google Ads (200€)', value: 200 }
   ];
+ 
 
   constructor(private formBuilder: FormBuilder,
-    private totalService: TotalBudgetService) {
+    private totalService: TotalBudgetService,
+    private router:Router,
+    private route: ActivatedRoute,
+    private location:Location) {
     this.form = this.formBuilder.group({
       checkArray: this.formBuilder.array([]),
       budget_name: ['', [Validators.required]],
-      user_name: ['', [Validators.required]]
+      user_name: ['', [Validators.required]],
+      checkboxChecked:['']
     });
   }
 
@@ -49,7 +55,20 @@ export class HomeComponent implements OnInit {
     return this.panellnums = $initialTotal;
   }
 
-  ngOnInit(): void { }
+  ngOnInit(){
+    this.form.valueChanges.subscribe((value) => {
+      console.log('fetch data with new value', value);
+
+      const urlTree = this.router.createUrlTree(['/home'], {
+        relativeTo: this.route,
+        queryParams: value,
+        queryParamsHandling: 'merge',
+      });
+  
+      this.location.go(urlTree.toString());
+    });
+
+   }
 
   onSubmit(form: FormGroup) {
     let today = new Date();

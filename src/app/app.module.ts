@@ -10,6 +10,7 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
 import { TotalBudgetService } from './services/total-budget.service';
 import { PressupostListComponent } from './components/pressupost-list/pressupost-list.component';
 import { FilterPipe } from './pipes/filter.pipe';
+import { BindQueryParamDirective } from './directives/bind-query-param.directive';
 
 
 
@@ -20,7 +21,8 @@ import { FilterPipe } from './pipes/filter.pipe';
     PanellComponent,
     WelcomeComponent,
     PressupostListComponent,
-    FilterPipe
+    FilterPipe,
+    BindQueryParamDirective
   ],
   imports: [
     BrowserModule,
