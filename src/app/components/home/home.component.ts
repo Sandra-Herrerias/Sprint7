@@ -60,48 +60,51 @@ export class HomeComponent implements OnInit {
   public budget_name:string = '';
   public checkArray:Array<string>= [];
   public checkboxChecked:string= '';
-  checkedItems: any = [];
+
 
   ngOnInit(){
    
     this.form.valueChanges.subscribe((value) => {
+     
       console.log('fetch data with new value', value);
 
       const urlTree = this.router.createUrlTree(['/home'], {
         relativeTo: this.route,
-        queryParams: {
-          budget_name:value.budget_name,
-          user_name: value.user_name,
-          checkArray: value.checkArray,
-          checkboxChecked:value.checkboxChecked
+        queryParams: { 
+          checkArray: value['checkArray'],
+          budget_name: value['budget_name'],
+          user_name: value['user_name'],
+          checkboxChecked:value['checkboxChecked']
         },
         queryParamsHandling: 'merge',
       });
-      console.log(urlTree.queryParams['budget_name']);
-      console.log(urlTree.queryParams['user_name']);
+
       console.log(urlTree.queryParams['checkArray']);
-      console.log(urlTree.queryParams['checkboxChecked']);
-  
+
+    const myArray = this.route.snapshot.queryParamMap.get('checkArray');
+        console.log(myArray);
+        console.log(urlTree.queryParams);
       this.location.go(urlTree.toString());
     });
 
     this.route.queryParams.subscribe(
-      queryParam => {
+      (queryParam) => {
         this.user_name = queryParam['user_name'];
         this.budget_name = queryParam['budget_name'];
         this.checkArray= queryParam['checkArray'];
         this.checkboxChecked = queryParam['checkboxChecked'];
-        console.log(queryParam['budget_name']);
-        console.log(this.user_name);
+
         console.log(queryParam['checkArray']);
+      
         console.log(this.checkArray);
         const myArray = this.route.snapshot.queryParamMap.get('checkArray');
-        console.log(this.checkboxChecked);
+        console.log(myArray);
         if (myArray === null) {
           this.checkArray = new Array<string>();
         } else {
           this.checkArray = JSON.parse(myArray);
         }
+        
       }
     )
    }
