@@ -61,13 +61,19 @@ export class HomeComponent implements OnInit {
 
       const urlTree = this.router.createUrlTree(['/home'], {
         relativeTo: this.route,
-        queryParams: value,
+        queryParams: {
+          budget_name:value.budget_name,
+          user_name: value.user_name,
+          checkArray: value.checkArray
+        },
         queryParamsHandling: 'merge',
       });
+      console.log(urlTree.queryParams['budget_name']);
+      console.log(urlTree.queryParams['user_name']);
+      console.log(urlTree.queryParams['checkArray']);
   
       this.location.go(urlTree.toString());
     });
-
    }
 
   onSubmit(form: FormGroup) {
