@@ -57,7 +57,8 @@ export class HomeComponent implements OnInit {
 
 
   public user_name:string = '';
-
+  public budget_name:string = '';
+  public checkArray:string = '';
   ngOnInit(){
     
     this.form.valueChanges.subscribe((value) => {
@@ -82,6 +83,8 @@ export class HomeComponent implements OnInit {
     this.route.queryParams.subscribe(
       queryParam => {
         this.user_name = queryParam['user_name'];
+        this.budget_name = queryParam['budget_name'];
+        this.checkArray = queryParam['checkArray'];
 console.log(queryParam['budget_name']);
 console.log(queryParam['user_name']);
 console.log(queryParam['checkArray']);

@@ -10,7 +10,7 @@
                 <div class="form-group" >
                     <div *ngFor="let data of Data; let i=index">
                         <label class="paddingInput">
-                    <input [id]="data.id" type="checkbox" [value]="data.value" [name]="data.name" (change)="checkValue($event)"  formControlName="checkboxChecked" bindQueryParam="checkboxChecked"/>
+                    <input [id]="data.id" type="checkbox" [value]="data.value" [name]="data.name" (change)="checkValue($event)"  formControlName="checkboxChecked" bindQueryParam="checkboxChecked" [(ngModel)]="checkArray"/>
                     {{data.name}}
                     </label>
                         <div *ngIf="data.id == 'web' && showPanell">
@@ -23,11 +23,11 @@
                 </div>
                 <div class="form-group p-1 ">
                     <label class="form-label" for="budget_name">Nom de pressupost: </label>
-                    <input type="text" class="form-control" name="budget_name" formControlName="budget_name" bindQueryParam="budget_name"/>
+                    <input type="text" class="form-control" name="budget_name" formControlName="budget_name" bindQueryParam="budget_name" [(ngModel)]="budget_name"/>
                 </div>
                 <div class="form-group p-1 ">
                     <label class="form-label" for="user_name">Nom client/a: </label>
-                    <input type="text" class="form-control" name="user_name" formControlName="user_name" bindQueryParam="user_name" value="user_name"/>{{user_name}}
+                    <input type="text" class="form-control" name="user_name" formControlName="user_name" bindQueryParam="user_name" [(ngModel)]="user_name"/>
                 </div>
                 <button class="btn backColorBtn mt-3 textBtn fw-bolder colorHover" type="submit">Enviar</button>
             </form>
