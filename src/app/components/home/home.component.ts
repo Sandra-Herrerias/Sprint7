@@ -55,7 +55,11 @@ export class HomeComponent implements OnInit {
     return this.panellnums = $initialTotal;
   }
 
+
+  public user_name:string = '';
+
   ngOnInit(){
+    
     this.form.valueChanges.subscribe((value) => {
       console.log('fetch data with new value', value);
 
@@ -74,6 +78,15 @@ export class HomeComponent implements OnInit {
   
       this.location.go(urlTree.toString());
     });
+
+    this.route.queryParams.subscribe(
+      queryParam => {
+        this.user_name = queryParam['user_name'];
+console.log(queryParam['budget_name']);
+console.log(queryParam['user_name']);
+console.log(queryParam['checkArray']);
+      }
+    )
    }
 
   onSubmit(form: FormGroup) {
