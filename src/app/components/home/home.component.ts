@@ -60,43 +60,43 @@ export class HomeComponent implements OnInit {
   public budget_name:string = '';
   public checkArray:Array<string>= [];
   public checkboxChecked:string= '';
-  checkedItems: any = [];
+  public numPage:number = 0;
+  public numLang:number = 0;
+private urlTree!:any;
 
   ngOnInit(){
    
     this.form.valueChanges.subscribe((value) => {
       console.log('fetch data with new value', value);
 
-      const urlTree = this.router.createUrlTree(['/home'], {
+      this.urlTree = this.router.createUrlTree(['/home'], {
         relativeTo: this.route,
         queryParams: {
-          budget_name:value.budget_name,
+          budget_name: value.budget_name,
           user_name: value.user_name,
           checkArray: value.checkArray,
-          checkboxChecked:value.checkboxChecked
+          checkboxChecked: value.checkboxChecked,
+          numPage: this.numPage,
+          numLang: this.numLang
         },
         queryParamsHandling: 'merge',
       });
-      console.log(urlTree.queryParams['budget_name']);
-      console.log(urlTree.queryParams['user_name']);
-      console.log(urlTree.queryParams['checkArray']);
-      console.log(urlTree.queryParams['checkboxChecked']);
-  
-      this.location.go(urlTree.toString());
+      
+      this.location.go(this.urlTree.toString());
     });
-
+   
+   
     this.route.queryParams.subscribe(
       queryParam => {
         this.user_name = queryParam['user_name'];
         this.budget_name = queryParam['budget_name'];
         this.checkArray= queryParam['checkArray'];
         this.checkboxChecked = queryParam['checkboxChecked'];
-        console.log(queryParam['budget_name']);
-        console.log(this.user_name);
-        console.log(queryParam['checkArray']);
-        console.log(this.checkArray);
+       // this.numPage = queryParam['numPage'];
+       // this.numLang = queryParam['numLang'];
+     
         const myArray = this.route.snapshot.queryParamMap.get('checkArray');
-        console.log(this.checkboxChecked);
+        
         if (myArray === null) {
           this.checkArray = new Array<string>();
         } else {
@@ -215,4 +215,17 @@ export class HomeComponent implements OnInit {
   clear() {
     localStorage.removeItem('budgets');
   }
+
+  getPages(e:any){
+    this.numPage = e;
+    console.log(this.numPage);
+    this.urlTree.numPage = e;
+  }
+
+  getLangs(e:any){
+    this.numLang = e;
+    console.log(this.numLang);
+    this.urlTree.numLang = e;
+  }
+
 }
