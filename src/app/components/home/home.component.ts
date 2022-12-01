@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter} from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, FormArray, Validators} from '@angular/forms';
 import { TotalBudgetService } from 'src/app/services/total-budget.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -27,13 +27,10 @@ export class HomeComponent implements OnInit {
 
   servicesChecked: Array<string> = [];
 
-  
- 
-
   Data: Array<any> = [
-    { id: 'web', name: 'Una pàgina web (500€)', value: 500,checked:false },
-    { id: 'seo', name: 'Una consultoria SEO (300€)', value: 300,checked:true },
-    { id: 'ads', name: 'Una campanya de Google Ads (200€)', value: 200,checked:false }
+    { id: 'web', name: 'Una pàgina web (500€)', value: 500 },
+    { id: 'seo', name: 'Una consultoria SEO (300€)', value: 300 },
+    { id: 'ads', name: 'Una campanya de Google Ads (200€)', value: 200 }
   ];
  
 
@@ -59,7 +56,7 @@ export class HomeComponent implements OnInit {
   public user_name:string = '';
   public budget_name:string = '';
   public checkArray:Array<string>= [];
-  public checkboxChecked:string= '';
+  public checkboxChecked:boolean= false;
 
 
   ngOnInit(){
@@ -67,7 +64,16 @@ export class HomeComponent implements OnInit {
     this.form.valueChanges.subscribe((value) => {
      
       console.log('fetch data with new value', value);
-
+      for(let i =0;i<this.checkArray.length;i++){
+        console.log(this.checkArray[i])
+        if(this.checkArray[i] === "300"){
+              console.log('true')
+              value.checkboxChecked = true;
+            } else {
+              value.checkboxChecked = false;
+              console.log('false')
+            }
+            }
       const urlTree = this.router.createUrlTree(['/home'], {
         relativeTo: this.route,
         queryParams: { 
@@ -79,23 +85,33 @@ export class HomeComponent implements OnInit {
         queryParamsHandling: 'merge',
       });
 
-      console.log(urlTree.queryParams['checkArray']);
+      console.log(this.checkArray);
+      console.log(this.budget_name);
+      console.log(this.user_name);
+      console.log(typeof(this.checkboxChecked)
+      
+      
+      
+      );
+      console.log(this.checkboxChecked);
 
-    const myArray = this.route.snapshot.queryParamMap.get('checkArray');
+      const myArray = this.route.snapshot.queryParamMap.get('checkArray');
         console.log(myArray);
         console.log(urlTree.queryParams);
       this.location.go(urlTree.toString());
     });
 
+    
+      
     this.route.queryParams.subscribe(
+      
       (queryParam) => {
         this.user_name = queryParam['user_name'];
         this.budget_name = queryParam['budget_name'];
         this.checkArray= queryParam['checkArray'];
         this.checkboxChecked = queryParam['checkboxChecked'];
 
-        console.log(queryParam['checkArray']);
-      
+    
         console.log(this.checkArray);
         const myArray = this.route.snapshot.queryParamMap.get('checkArray');
         console.log(myArray);
@@ -103,10 +119,12 @@ export class HomeComponent implements OnInit {
           this.checkArray = new Array<string>();
         } else {
           this.checkArray = JSON.parse(myArray);
-        }
-        
+        }  
       }
     )
+
+
+    
    }
 
   onSubmit(form: FormGroup) {
