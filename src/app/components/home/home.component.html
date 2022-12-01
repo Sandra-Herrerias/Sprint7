@@ -14,7 +14,7 @@
                     {{data.name}}
                     </label>
                         <div *ngIf="data.id == 'web' && showPanell">
-                            <app-panell (modifiedTotal)="getTotal($event)"></app-panell>
+                            <app-panell (modifiedTotal)="getTotal($event)" (numPages)="getPages($event)" (numLangs)="getLangs($event)"></app-panell>
                         </div>
                     </div>
                 </div>

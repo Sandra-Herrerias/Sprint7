@@ -10,7 +10,9 @@ import { TotalBudgetService } from 'src/app/services/total-budget.service';
 export class PanellComponent implements OnInit {
 
   @Output() modifiedTotal = new EventEmitter<number>();
-
+  @Output() numPages = new EventEmitter<number>();
+  @Output() numLangs = new EventEmitter<number>();
+  
   public formPanell!: FormGroup;
 
   numPage: number = 0;
@@ -19,6 +21,8 @@ export class PanellComponent implements OnInit {
 
   regexOnlyNumbers = "[0-9]+";
 
+  
+  
   constructor(private totalService: TotalBudgetService,
     private formBuilder: FormBuilder) {
 
@@ -43,6 +47,8 @@ export class PanellComponent implements OnInit {
     }
     this.totalService.partialBudget(this.numPage, this.numLang);
     this.modifiedTotal.emit(this.totalService.getPartialSum());
+    this.numPages.emit(this.numPage);
+    this.numLangs.emit(this.numLang);
   }
 
   minus($e: any) {
@@ -61,6 +67,8 @@ export class PanellComponent implements OnInit {
     
     this.totalService.partialBudget(this.numPage, this.numLang);
     this.modifiedTotal.emit(this.totalService.getPartialSum());
+    this.numPages.emit(this.numPage);
+    this.numLangs.emit(this.numLang);
   }
 
 
