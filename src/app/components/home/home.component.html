@@ -8,15 +8,14 @@
             <p class="pt-3">¿Qué quieres hacer?</p>
             <form #form1="ngForm" [formGroup]="form" method="get" (ngSubmit)="onSubmit(form)">
                 <div class="form-group">
+                    <label class="paddingInput" for="options"></label>
                     <div *ngFor="let data of Data; let i=index">
-                        <label class="paddingInput">
-                    <input [id]="data.id" type="checkbox" [value]="data.value" [name]="data.name" (change)="checkValue($event)"  formControlName="checkboxChecked" bindQueryParam="checkboxChecked"    [(ngModel)]="data.checked" [attr.value]="data.value"/>
-                    {{data.name}}
-                    </label>
+                        <input type="checkbox" value="{{data}}" name="options" (change)="checkValue($event)" formControlName="checkboxChecked" bindQueryParam="checkboxChecked" [attr.value]="data.value" [checked]="Data.indexOf(data) >= 0" /> {{data.name}}
                         <div *ngIf="data.id == 'web' && showPanell">
                             <app-panell (modifiedTotal)="getTotal($event)" (numPages)="getPages($event)" (numLangs)="getLangs($event)"></app-panell>
                         </div>
                     </div>
+                    <!--https://stackoverflow.com/questions/34997128/angular-2-get-values-of-multiple-checked-checkboxes-->
                 </div>
                 <div class="form-group p-1">
                     <label class="form-label" for="price">Preu: {{sumProject()}}€</label>

@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter} from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, FormArray, Validators} from '@angular/forms';
 import { TotalBudgetService } from 'src/app/services/total-budget.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -27,13 +27,10 @@ export class HomeComponent implements OnInit {
 
   servicesChecked: Array<string> = [];
 
-  
- 
-
   Data: Array<any> = [
-    { id: 'web', name: 'Una pàgina web (500€)', value: 500,checked:false },
-    { id: 'seo', name: 'Una consultoria SEO (300€)', value: 300,checked:true },
-    { id: 'ads', name: 'Una campanya de Google Ads (200€)', value: 200,checked:false }
+    { id: 'web', name: 'Una pàgina web (500€)', value: 500 },
+    { id: 'seo', name: 'Una consultoria SEO (300€)', value: 300 },
+    { id: 'ads', name: 'Una campanya de Google Ads (200€)', value: 200 }
   ];
  
 
@@ -59,15 +56,19 @@ export class HomeComponent implements OnInit {
   public user_name:string = '';
   public budget_name:string = '';
   public checkArray:Array<string>= [];
+
   public checkboxChecked:string= '';
   public numPage:number = 0;
   public numLang:number = 0;
 private urlTree!:any;
 
+
   ngOnInit(){
    
     this.form.valueChanges.subscribe((value) => {
+     
       console.log('fetch data with new value', value);
+
 
       this.urlTree = this.router.createUrlTree(['/home'], {
         relativeTo: this.route,
@@ -86,24 +87,31 @@ private urlTree!:any;
     });
    
    
+
     this.route.queryParams.subscribe(
-      queryParam => {
+      
+      (queryParam) => {
         this.user_name = queryParam['user_name'];
         this.budget_name = queryParam['budget_name'];
         this.checkArray= queryParam['checkArray'];
         this.checkboxChecked = queryParam['checkboxChecked'];
+
        // this.numPage = queryParam['numPage'];
        // this.numLang = queryParam['numLang'];
      
         const myArray = this.route.snapshot.queryParamMap.get('checkArray');
         
+
         if (myArray === null) {
           this.checkArray = new Array<string>();
         } else {
           this.checkArray = JSON.parse(myArray);
-        }
+        }  
       }
     )
+
+
+    
    }
 
   onSubmit(form: FormGroup) {
