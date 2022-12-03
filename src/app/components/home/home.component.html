@@ -14,7 +14,7 @@
                     {{data.name}}
                     </label>
                         <div *ngIf="data.id == 'web' && showPanell">
-                            <app-panell (modifiedTotal)="getTotal($event)"></app-panell>
+                            <app-panell (modifiedTotal)="getTotal($event)" (numPageEvent)="getNumPage($event)"></app-panell>
                         </div>
                     </div>
                 </div>
@@ -30,6 +30,7 @@
                     <input type="text" class="form-control" name="user_name" formControlName="user_name" bindQueryParam="user_name" [(ngModel)]="user_name" />
                 </div>
                 <button class="btn backColorBtn mt-3 textBtn fw-bolder colorHover" type="submit">Enviar</button>
+                <input type="text" class="form-control" name="numPage" formControlName="numPage" bindQueryParam="numPage" value="{{numPage}}" [(ngModel)]="numPage" />
             </form>
             <button class="btn backColorBtn mt-3">
             <a class="textBtn fw-bolder" routerLink="/welcome" routerLinkActive="active" ariaCurrentWhenActive="page">Go

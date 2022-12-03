@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
   servicesChecked: Array<string> = [];
 
   
- 
+  numPage: number = 0;
 
   Data: Array<any> = [
     { id: 'web', name: 'Una pàgina web (500€)', value: 500,checked:false },
@@ -46,6 +46,7 @@ export class HomeComponent implements OnInit {
       checkArray: this.formBuilder.array([]),
       budget_name: ['', [Validators.required]],
       user_name: ['', [Validators.required]],
+      numPage:['', [Validators.required]],
       checkboxChecked:['']
     });
   }
@@ -73,7 +74,8 @@ export class HomeComponent implements OnInit {
           budget_name:value.budget_name,
           user_name: value.user_name,
           checkArray: value.checkArray,
-          checkboxChecked:value.checkboxChecked
+          checkboxChecked:value.checkboxChecked,
+          numPage: value.numPage
         },
         queryParamsHandling: 'merge',
       });
@@ -91,6 +93,7 @@ export class HomeComponent implements OnInit {
         this.budget_name = queryParam['budget_name'];
         this.checkArray= queryParam['checkArray'];
         this.checkboxChecked = queryParam['checkboxChecked'];
+        this.numPage = queryParam['numPage'];
         console.log(queryParam['budget_name']);
         console.log(this.user_name);
         console.log(queryParam['checkArray']);
@@ -214,5 +217,11 @@ export class HomeComponent implements OnInit {
   }
   clear() {
     localStorage.removeItem('budgets');
+  }
+
+
+  getNumPage(e: any) {
+    this.numPage=e;
+    console.log("Pare" + this.numPage);
   }
 }

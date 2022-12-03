@@ -6,9 +6,10 @@
                 <label for="numPage" class="form-label">Número de páginas </label>
                 <button class="btnSpinner mx-1 " type="button" (click)="plus($event)"> <i id="plusPage"
             class="fa fa-plus"></i></button>
-                <input name="numPage" formControlName="numPage" (change)="onChange()" class="borderBlack  form-control-color" type="text" [value]="numPage" placeholder="0" [(ngModel)]="numPage">
+                <input name="numPage" formControlName="numPage" class="borderBlack  form-control-color" type="text" [value]="numPage" placeholder="0" [(ngModel)]="numPage" (ngModelChange)="ejecutarEvento()">
                 <button id="minusPage" class="btnSpinner mx-1" type="button" (click)="minus($event)"> <i id="minusPage"
             class="fa fa-minus"></i></button>
+
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-warning btn-circle" data-bs-toggle="modal" data-bs-target="#modalPag">
         <i class="fa fa-light fa-circle-info fa-2xl"></i>
@@ -19,7 +20,7 @@
                 <label for="numLang" class="form-label">Número de idiomas </label>
                 <button class="btnSpinner mx-1 " type="button" (click)="plus($event)"> <i id="plusLang"
             class="fa fa-plus"></i></button>
-                <input name="numLang" formControlName="numLang" (change)="onChange()" class="borderBlack  form-control-color" type="text" [value]="numLang" placeholder="0" [(ngModel)]="numLang">
+                <input name="numLang" formControlName="numLang" class="borderBlack  form-control-color" type="text" [value]="numLang" placeholder="0" [(ngModel)]="numLang">
                 <button id="minusLang" class="btnSpinner mx-1" type="button" (click)="minus($event)"> <i id="minusLang"
             class="fa fa-minus"></i></button>
                 <!-- Button trigger modal -->
