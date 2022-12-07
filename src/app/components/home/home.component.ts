@@ -29,11 +29,12 @@ export class HomeComponent implements OnInit {
 
   
   numPage: number = 0;
+  numLang: number = 0;
 
-  Data: Array<any> = [
-    { id: 'web', name: 'Una pàgina web (500€)', value: 500,checked:false },
-    { id: 'seo', name: 'Una consultoria SEO (300€)', value: 300,checked:true },
-    { id: 'ads', name: 'Una campanya de Google Ads (200€)', value: 200,checked:false }
+  offeredServices: Array<any> = [
+    { id: 'web', name: 'Una pàgina web (500€)', value: 500, checked:false },
+    { id: 'seo', name: 'Una consultoria SEO (300€)', value: 300, checked:false },
+    { id: 'ads', name: 'Una campanya de Google Ads (200€)', value: 200, checked:false }
   ];
  
 
@@ -47,6 +48,7 @@ export class HomeComponent implements OnInit {
       budget_name: ['', [Validators.required]],
       user_name: ['', [Validators.required]],
       numPage:['', [Validators.required]],
+      numLang:['', [Validators.required]],
       checkboxChecked:['']
     });
   }
@@ -60,7 +62,7 @@ export class HomeComponent implements OnInit {
   public user_name:string = '';
   public budget_name:string = '';
   public checkArray:Array<string>= [];
-  public checkboxChecked:string= '';
+  public checkboxChecked:Array<string>= [];
   checkedItems: any = [];
 
   ngOnInit(){
@@ -75,7 +77,8 @@ export class HomeComponent implements OnInit {
           user_name: value.user_name,
           checkArray: value.checkArray,
           checkboxChecked:value.checkboxChecked,
-          numPage: value.numPage
+          numPage: value.numPage,
+          numLang: value.numLang
         },
         queryParamsHandling: 'merge',
       });
@@ -94,6 +97,7 @@ export class HomeComponent implements OnInit {
         this.checkArray= queryParam['checkArray'];
         this.checkboxChecked = queryParam['checkboxChecked'];
         this.numPage = queryParam['numPage'];
+        this.numLang = queryParam['numLang'];
         console.log(queryParam['budget_name']);
         console.log(this.user_name);
         console.log(queryParam['checkArray']);
@@ -222,6 +226,10 @@ export class HomeComponent implements OnInit {
 
   getNumPage(e: any) {
     this.numPage=e;
-    console.log("Pare" + this.numPage);
+    console.log("Pare Page: " + this.numPage);
+  }
+  getNumLang(e: any) {
+    this.numLang=e;
+    console.log("Pare Lang: " + this.numLang);
   }
 }

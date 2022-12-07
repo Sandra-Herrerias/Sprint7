@@ -12,10 +12,16 @@ export class PanellComponent implements OnInit {
   @Output() modifiedTotal = new EventEmitter<number>();
 
   @Output() numPageEvent = new EventEmitter<number>();
+  @Output() numLangEvent = new EventEmitter<number>();
 
-  ejecutarEvento(){
+  ejecutarnumPag(){
 
     this.numPageEvent.emit(this.numPage);
+  }
+
+  ejecutarnumLang(){
+
+    this.numLangEvent.emit(this.numLang);
   }
 
   public formPanell!: FormGroup;
@@ -51,6 +57,7 @@ export class PanellComponent implements OnInit {
     this.totalService.partialBudget(this.numPage, this.numLang);
     this.modifiedTotal.emit(this.totalService.getPartialSum());
     this.numPageEvent.emit(this.numPage);
+    this.numLangEvent.emit(this.numLang);
   }
 
   minus($e: any) {
@@ -70,6 +77,7 @@ export class PanellComponent implements OnInit {
     this.totalService.partialBudget(this.numPage, this.numLang);
     this.modifiedTotal.emit(this.totalService.getPartialSum());
     this.numPageEvent.emit(this.numPage);
+    this.numLangEvent.emit(this.numLang);
   }
 
 
