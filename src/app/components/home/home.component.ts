@@ -12,29 +12,35 @@ import { Location } from '@angular/common';
 
 })
 export class HomeComponent implements OnInit {
+  
   form!: FormGroup;
-
   showPanell: boolean = false;
-
   total!: string[];
   arrayNumbers: number[] = [];
   result!: number;
   totalBudget!: number;
-
   totalProject: number = 0;
-
   panellnums!: number;
-
   servicesChecked: Array<string> = [];
 
-  
   numPage: number = 0;
   numLang: number = 0;
 
+  public user_name:string = '';
+  public budget_name:string = '';
+  public selectedPrices:Array<string>= [];
+  public checkboxChecked:Array<string>= [];
+
+  public webSelected: boolean = false;
+  public seoSelected: boolean = false;
+  public adsSelected: boolean = false;
+
+  checkedItems: any = [];
+
   offeredServices: Array<any> = [
-    { id: 'web', name: 'Una pàgina web (500€)', value: 500, checked:false },
-    { id: 'seo', name: 'Una consultoria SEO (300€)', value: 300, checked:false },
-    { id: 'ads', name: 'Una campanya de Google Ads (200€)', value: 200, checked:false }
+    { id: 'web', name: 'Una pàgina web (500€)', value: 500},
+    { id: 'seo', name: 'Una consultoria SEO (300€)', value: 300},
+    { id: 'ads', name: 'Una campanya de Google Ads (200€)', value: 200}
   ];
  
 
@@ -44,11 +50,14 @@ export class HomeComponent implements OnInit {
     private route: ActivatedRoute,
     private location:Location) {
     this.form = this.formBuilder.group({
-      checkArray: this.formBuilder.array([]),
+      selectedPrices: this.formBuilder.array([]),
       budget_name: ['', [Validators.required]],
       user_name: ['', [Validators.required]],
       numPage:['', [Validators.required]],
       numLang:['', [Validators.required]],
+      webSelected:[''],
+      seoSelected:[''],
+      adsSelected:[''],
       checkboxChecked:['']
     });
   }
@@ -58,35 +67,22 @@ export class HomeComponent implements OnInit {
     return this.panellnums = $initialTotal;
   }
 
-
-  public user_name:string = '';
-  public budget_name:string = '';
-  public checkArray:Array<string>= [];
-  public checkboxChecked:Array<string>= [];
-  checkedItems: any = [];
-
   ngOnInit(){
    
     this.form.valueChanges.subscribe((value) => {
-      console.log('fetch data with new value', value);
-
       const urlTree = this.router.createUrlTree(['/home'], {
         relativeTo: this.route,
         queryParams: {
           budget_name:value.budget_name,
           user_name: value.user_name,
-          checkArray: value.checkArray,
-          checkboxChecked:value.checkboxChecked,
           numPage: value.numPage,
-          numLang: value.numLang
+          numLang: value.numLang,
+          webSelected: value.webSelected,
+          seoSelected: value.seoSelected,
+          adsSelected: value.adsSelected,
         },
         queryParamsHandling: 'merge',
       });
-      console.log(urlTree.queryParams['budget_name']);
-      console.log(urlTree.queryParams['user_name']);
-      console.log(urlTree.queryParams['checkArray']);
-      console.log(urlTree.queryParams['checkboxChecked']);
-  
       this.location.go(urlTree.toString());
     });
 
@@ -94,20 +90,17 @@ export class HomeComponent implements OnInit {
       queryParam => {
         this.user_name = queryParam['user_name'];
         this.budget_name = queryParam['budget_name'];
-        this.checkArray= queryParam['checkArray'];
-        this.checkboxChecked = queryParam['checkboxChecked'];
         this.numPage = queryParam['numPage'];
         this.numLang = queryParam['numLang'];
-        console.log(queryParam['budget_name']);
-        console.log(this.user_name);
-        console.log(queryParam['checkArray']);
-        console.log(this.checkArray);
-        const myArray = this.route.snapshot.queryParamMap.get('checkArray');
-        console.log(this.checkboxChecked);
-        if (myArray === null) {
-          this.checkArray = new Array<string>();
+        this.webSelected = queryParam['webSelected'];
+        this.seoSelected = queryParam['seoSelected'];
+        this.adsSelected = queryParam['adsSelected'];
+        
+        const pricesArray = this.route.snapshot.queryParamMap.get('selectedPrices');
+        if (pricesArray === null) {
+          this.selectedPrices = new Array<string>();
         } else {
-          this.checkArray = JSON.parse(myArray);
+          this.selectedPrices = JSON.parse(pricesArray);
         }
       }
     )
@@ -144,15 +137,23 @@ export class HomeComponent implements OnInit {
    */
   checkValue(event: any) {
     //values from form
-    const checkArray: FormArray = this.form.get('checkArray') as FormArray;
+    const selectedPrices: FormArray = this.form.get('selectedPrices') as FormArray;
 
     if (event.target.checked) {//add values selected to array
-      checkArray.push(new FormControl(event.target.value));
+      selectedPrices.push(new FormControl(event.target.value));
       this.servicesChecked.push(event.target.name);
 
+      if (event.target.id === "web") {
+        this.webSelected = true;
+      }else if (event.target.id === "seo") {
+        this.seoSelected = true;
+      }else if (event.target.id === "ads") {
+        this.adsSelected = true;
+      }
+
     } else {//delete values unselected to array
-      const index = checkArray.controls.findIndex(x => x.value === event.target.value);
-      checkArray.removeAt(index);
+      const index = selectedPrices.controls.findIndex(x => x.value === event.target.value);
+      selectedPrices.removeAt(index);
 
       this.servicesChecked.forEach((element, index) => {
         if (element == event.target.name) this.servicesChecked.splice(index, 1);
@@ -160,11 +161,16 @@ export class HomeComponent implements OnInit {
 
       if (event.target.id === "web") {
         this.totalService.partialTotal = 0;
+        this.webSelected = false;
+      }else if (event.target.id === "seo") {
+        this.seoSelected = false;
+      }else if (event.target.id === "ads") {
+        this.adsSelected = false;
       }
     }
 
     //add values to new array
-    this.total = Array.from(checkArray.value);
+    this.total = Array.from(selectedPrices.value);
 
     this.arrayNumbers = this.convertArrStringToArrNum(this.total);
     this.totalBudget = this.totalSum(this.arrayNumbers);
@@ -226,10 +232,8 @@ export class HomeComponent implements OnInit {
 
   getNumPage(e: any) {
     this.numPage=e;
-    console.log("Pare Page: " + this.numPage);
   }
   getNumLang(e: any) {
     this.numLang=e;
-    console.log("Pare Lang: " + this.numLang);
   }
 }

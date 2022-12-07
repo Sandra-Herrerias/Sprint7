@@ -35,6 +35,9 @@
                 <button class="btn backColorBtn mt-3 textBtn fw-bolder colorHover" type="submit">Enviar</button>
                 <input type="hidden" class="form-control" name="numPage" formControlName="numPage" bindQueryParam="numPage" value="{{numPage}}" [(ngModel)]="numPage" />
                 <input type="hidden" class="form-control" name="numLang" formControlName="numLang" bindQueryParam="numLang" value="{{numLang}}" [(ngModel)]="numLang" />
+                <input type="hidden" class="form-control" name="webSelected" formControlName="webSelected" bindQueryParam="webSelected" value="{{webSelected}}" [(ngModel)]="webSelected" />
+                <input type="hidden" class="form-control" name="seoSelected" formControlName="seoSelected" bindQueryParam="seoSelected" value="{{seoSelected}}" [(ngModel)]="seoSelected" />
+                <input type="hidden" class="form-control" name="adsSelected" formControlName="adsSelected" bindQueryParam="adsSelected" value="{{adsSelected}}" [(ngModel)]="adsSelected" />
             </form>
             <button class="btn backColorBtn mt-3">
             <a class="textBtn fw-bolder" routerLink="/welcome" routerLinkActive="active" ariaCurrentWhenActive="page">Go
