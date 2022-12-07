@@ -15,7 +15,7 @@
                             {{offeredServices[0].name}}
                     </label>
                     <div *ngIf="webSelected">
-                        <app-panell (modifiedTotal)="getTotal($event)" (numPageEvent)="getNumPage($event)" (numLangEvent)="getNumLang($event)"></app-panell>
+                        <app-panell (modifiedTotal)="getTotal($event)" (numPageEvent)="getNumPage($event)" (numLangEvent)="getNumLang($event)" [numPage]="numPage" [numLang]="numLang"></app-panell>
                     </div>
                     <br>
                     <label class="seoInput">

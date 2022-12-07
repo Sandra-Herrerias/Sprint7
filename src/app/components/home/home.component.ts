@@ -23,8 +23,8 @@ export class HomeComponent implements OnInit {
   servicesChecked: Array<string> = [];
   showListBudgets: boolean = false;
 
-  numPage: number = 0;
-  numLang: number = 0;
+  numPage!: number;
+  numLang!: number;
 
   public user_name:string = '';
   public budget_name:string = '';
@@ -70,7 +70,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(){
-    this.totalPrice=0;
+
     this.form.valueChanges.subscribe((value) => {
       const urlTree = this.router.createUrlTree(['/home'], {
         relativeTo: this.route,
@@ -108,11 +108,8 @@ export class HomeComponent implements OnInit {
         }
       }
     )
-
-    console.log(this.webSelected);
-    console.log(this.seoSelected);
-    console.log(this.adsSelected);
-
+    console.log(this.numLang);
+    console.log(this.numPage);
    }
 
   onSubmit(form: FormGroup) {
