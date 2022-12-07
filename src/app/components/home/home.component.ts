@@ -14,7 +14,6 @@ import { Location } from '@angular/common';
 export class HomeComponent implements OnInit {
   
   form!: FormGroup;
-  showPanell: boolean = false;
   total!: string[];
   arrayNumbers: number[] = [];
   result!: number;
@@ -38,9 +37,9 @@ export class HomeComponent implements OnInit {
   checkedItems: any = [];
 
   offeredServices: Array<any> = [
-    { id: 'web', name: 'Una pàgina web (500€)', value: 500},
-    { id: 'seo', name: 'Una consultoria SEO (300€)', value: 300},
-    { id: 'ads', name: 'Una campanya de Google Ads (200€)', value: 200}
+    { id: 'web', name: 'Una pàgina web (500€)', value: 500, checked: false},
+    { id: 'seo', name: 'Una consultoria SEO (300€)', value: 300, checked: false},
+    { id: 'ads', name: 'Una campanya de Google Ads (200€)', value: 200, checked: false}
   ];
  
 
@@ -68,7 +67,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(){
-   
+
     this.form.valueChanges.subscribe((value) => {
       const urlTree = this.router.createUrlTree(['/home'], {
         relativeTo: this.route,
@@ -104,6 +103,11 @@ export class HomeComponent implements OnInit {
         }
       }
     )
+
+    console.log(this.webSelected);
+    console.log(this.seoSelected);
+    console.log(this.adsSelected);
+
    }
 
   onSubmit(form: FormGroup) {
@@ -175,8 +179,6 @@ export class HomeComponent implements OnInit {
     this.arrayNumbers = this.convertArrStringToArrNum(this.total);
     this.totalBudget = this.totalSum(this.arrayNumbers);
 
-    //if web id is selected
-    this.showPanellChild(event);
   }
 
   sumProject() {
@@ -213,18 +215,6 @@ export class HomeComponent implements OnInit {
     return this.result;
   }
 
-
-  /**
-   * Function that shows child component in case id were web
-   * @param event 
-   */
-  showPanellChild(event: any) {
-    if (event.target.id == 'web' && event.target.checked) {
-      this.showPanell = true;
-    } else if (event.target.id == 'web' && !event.target.checked) {
-      this.showPanell = false;
-    }
-  }
   clear() {
     localStorage.removeItem('budgets');
   }

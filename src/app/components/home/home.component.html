@@ -8,18 +8,28 @@
             <p class="pt-3">¿Qué quieres hacer?</p>
             <form #form1="ngForm" [formGroup]="form" method="get" (ngSubmit)="onSubmit(form)">
                 <div class="form-group">
-                    <div *ngFor="let data of offeredServices;let i=index">
-                        <label class="paddingInput">
-                            <input [id]="data.id" type="checkbox" [value]="data.value" [name]="data.name" (change)="checkValue($event)"  
-                            formControlName="checkboxChecked" bindQueryParam="checkboxChecked" [(ngModel)]="data.checked" [attr.value]="data.value"/>
-                            {{data.name}}
-
-                
-                        </label>
-                        <div *ngIf="data.id == 'web' && showPanell">
-                            <app-panell (modifiedTotal)="getTotal($event)" (numPageEvent)="getNumPage($event)" (numLangEvent)="getNumLang($event)"></app-panell>
-                        </div>
+                    <!--<div *ngFor="let data of offeredServices;let i=index">-->
+                    <label class="webInput">
+                        <input [id]="offeredServices[0].id" type="checkbox" [value]="offeredServices[0].value" [name]="offeredServices[0].name" (change)="checkValue($event)"  
+                            formControlName="webSelected" bindQueryParam="webSelected" [(ngModel)]="offeredServices[0].checked" [attr.value]="offeredServices[0].value"/>
+                            {{offeredServices[0].name}}
+                    </label>
+                    <div *ngIf="webSelected">
+                        <app-panell (modifiedTotal)="getTotal($event)" (numPageEvent)="getNumPage($event)" (numLangEvent)="getNumLang($event)"></app-panell>
                     </div>
+                    <br>
+                    <label class="seoInput">
+                        <input [id]="offeredServices[1].id" type="checkbox" [value]="offeredServices[1].value" [name]="offeredServices[1].name" (change)="checkValue($event)"  
+                            formControlName="seoSelected" bindQueryParam="seoSelected" [(ngModel)]="offeredServices[1].checked" [attr.value]="offeredServices[1].value"/>
+                            {{offeredServices[1].name}}
+                    </label>
+                    <br>
+                    <label class="adsInput">
+                        <input [id]="offeredServices[2].id" type="checkbox" [value]="offeredServices[2].value" [name]="offeredServices[2].name" (change)="checkValue($event)"  
+                            formControlName="adsSelected" bindQueryParam="adsSelected" [(ngModel)]="offeredServices[2].checked" [attr.value]="offeredServices[2].value"/>
+                            {{offeredServices[2].name}}
+                    </label>
+                    <!--</div>-->
                 </div>
                 <div class="form-group p-1">
                     <label class="form-label" for="price">Preu: {{sumProject()}}€</label>
@@ -33,8 +43,8 @@
                     <input type="text" class="form-control" name="user_name" formControlName="user_name" bindQueryParam="user_name" [(ngModel)]="user_name" />
                 </div>
                 <button class="btn backColorBtn mt-3 textBtn fw-bolder colorHover" type="submit">Enviar</button>
-                <input type="hidden" class="form-control" name="numPage" formControlName="numPage" bindQueryParam="numPage" value="{{numPage}}" [(ngModel)]="numPage" />
-                <input type="hidden" class="form-control" name="numLang" formControlName="numLang" bindQueryParam="numLang" value="{{numLang}}" [(ngModel)]="numLang" />
+                <input type="text" class="form-control" name="numPage" formControlName="numPage" bindQueryParam="numPage" value="{{numPage}}" [(ngModel)]="numPage" />
+                <input type="text" class="form-control" name="numLang" formControlName="numLang" bindQueryParam="numLang" value="{{numLang}}" [(ngModel)]="numLang" />
                 <input type="hidden" class="form-control" name="webSelected" formControlName="webSelected" bindQueryParam="webSelected" value="{{webSelected}}" [(ngModel)]="webSelected" />
                 <input type="hidden" class="form-control" name="seoSelected" formControlName="seoSelected" bindQueryParam="seoSelected" value="{{seoSelected}}" [(ngModel)]="seoSelected" />
                 <input type="hidden" class="form-control" name="adsSelected" formControlName="adsSelected" bindQueryParam="adsSelected" value="{{adsSelected}}" [(ngModel)]="adsSelected" />
