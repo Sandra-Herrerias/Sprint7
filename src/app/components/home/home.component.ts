@@ -21,6 +21,7 @@ export class HomeComponent implements OnInit {
   totalProject: number = 0;
   panellnums!: number;
   servicesChecked: Array<string> = [];
+  showListBudgets: boolean = false;
 
   numPage: number = 0;
   numLang: number = 0;
@@ -33,6 +34,7 @@ export class HomeComponent implements OnInit {
   public webSelected: boolean = false;
   public seoSelected: boolean = false;
   public adsSelected: boolean = false;
+  public totalPrice!: number;
 
   checkedItems: any = [];
 
@@ -52,12 +54,13 @@ export class HomeComponent implements OnInit {
       selectedPrices: this.formBuilder.array([]),
       budget_name: ['', [Validators.required]],
       user_name: ['', [Validators.required]],
-      numPage:['', [Validators.required]],
-      numLang:['', [Validators.required]],
+      numPage:[''],
+      numLang:[''],
       webSelected:[''],
       seoSelected:[''],
       adsSelected:[''],
-      checkboxChecked:['']
+      checkboxChecked:[''],
+      totalPrice:this.sumProject()
     });
   }
 
@@ -67,7 +70,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(){
-
+    this.totalPrice=0;
     this.form.valueChanges.subscribe((value) => {
       const urlTree = this.router.createUrlTree(['/home'], {
         relativeTo: this.route,
@@ -79,6 +82,7 @@ export class HomeComponent implements OnInit {
           webSelected: value.webSelected,
           seoSelected: value.seoSelected,
           adsSelected: value.adsSelected,
+          totalPrice:this.sumProject()
         },
         queryParamsHandling: 'merge',
       });
@@ -94,6 +98,7 @@ export class HomeComponent implements OnInit {
         this.webSelected = queryParam['webSelected'];
         this.seoSelected = queryParam['seoSelected'];
         this.adsSelected = queryParam['adsSelected'];
+        this.totalPrice = queryParam['totalPrice'];
         
         const pricesArray = this.route.snapshot.queryParamMap.get('selectedPrices');
         if (pricesArray === null) {
@@ -111,6 +116,7 @@ export class HomeComponent implements OnInit {
    }
 
   onSubmit(form: FormGroup) {
+    this.showListBudgets= true;
     let today = new Date();
     let date = today.toLocaleString("es-ES");
 
@@ -129,10 +135,11 @@ export class HomeComponent implements OnInit {
         total_price: this.sumProject(),
         date: date
       };
-      //alert("Pressupost creat correctament");
+      alert("Pressupost creat correctament");
       this.totalService.addNewBudget(newBudget);
+      
     } else {
-      //alert("Pressupost no creat, empleni la informació necessaria");
+      alert("Pressupost no creat, empleni la informació necessaria");
     }
   }
   /**

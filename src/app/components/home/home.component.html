@@ -32,7 +32,10 @@
                     <!--</div>-->
                 </div>
                 <div class="form-group p-1">
-                    <label class="form-label" for="price">Preu: {{sumProject()}}€</label>
+                    <label class="form-label" for="price">Preu:
+                    <input type="text" class="form-control" name="totalPrice" formControlName="totalPrice" bindQueryParam="totalPrice" [(ngModel)]="totalPrice" 
+                    placeholder="{{sumProject()}} €" readonly [value]="sumProject()+' €'"/>
+                </label>
                 </div>
                 <div class="form-group p-1 ">
                     <label class="form-label" for="budget_name">Nom de pressupost: </label>
@@ -43,11 +46,12 @@
                     <input type="text" class="form-control" name="user_name" formControlName="user_name" bindQueryParam="user_name" [(ngModel)]="user_name" />
                 </div>
                 <button class="btn backColorBtn mt-3 textBtn fw-bolder colorHover" type="submit">Enviar</button>
-                <input type="text" class="form-control" name="numPage" formControlName="numPage" bindQueryParam="numPage" value="{{numPage}}" [(ngModel)]="numPage" />
-                <input type="text" class="form-control" name="numLang" formControlName="numLang" bindQueryParam="numLang" value="{{numLang}}" [(ngModel)]="numLang" />
+                <input type="hidden" class="form-control" name="numPage" formControlName="numPage" bindQueryParam="numPage" value="{{numPage}}" [(ngModel)]="numPage" />
+                <input type="hidden" class="form-control" name="numLang" formControlName="numLang" bindQueryParam="numLang" value="{{numLang}}" [(ngModel)]="numLang" />
                 <input type="hidden" class="form-control" name="webSelected" formControlName="webSelected" bindQueryParam="webSelected" value="{{webSelected}}" [(ngModel)]="webSelected" />
                 <input type="hidden" class="form-control" name="seoSelected" formControlName="seoSelected" bindQueryParam="seoSelected" value="{{seoSelected}}" [(ngModel)]="seoSelected" />
                 <input type="hidden" class="form-control" name="adsSelected" formControlName="adsSelected" bindQueryParam="adsSelected" value="{{adsSelected}}" [(ngModel)]="adsSelected" />
+                <input type="hidden" class="form-control" name="totalPrice" formControlName="totalPrice" bindQueryParam="totalPrice" value="{{totalPrice}}" [(ngModel)]="totalPrice" />
             </form>
             <button class="btn backColorBtn mt-3">
             <a class="textBtn fw-bolder" routerLink="/welcome" routerLinkActive="active" ariaCurrentWhenActive="page">Go
