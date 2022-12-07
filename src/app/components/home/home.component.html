@@ -8,17 +8,34 @@
             <p class="pt-3">¿Qué quieres hacer?</p>
             <form #form1="ngForm" [formGroup]="form" method="get" (ngSubmit)="onSubmit(form)">
                 <div class="form-group">
-                    <label class="paddingInput" for="options"></label>
-                    <div *ngFor="let data of Data; let i=index">
-                        <input type="checkbox" value="{{data}}" name="options" (change)="checkValue($event)" formControlName="checkboxChecked" bindQueryParam="checkboxChecked" [attr.value]="data.value" [checked]="Data.indexOf(data) >= 0" /> {{data.name}}
-                        <div *ngIf="data.id == 'web' && showPanell">
-                            <app-panell (modifiedTotal)="getTotal($event)" (numPages)="getPages($event)" (numLangs)="getLangs($event)"></app-panell>
-                        </div>
+                    <!--<div *ngFor="let data of offeredServices;let i=index">-->
+                    <label class="webInput">
+                        <input [id]="offeredServices[0].id" type="checkbox" [value]="offeredServices[0].value" [name]="offeredServices[0].name" (change)="checkValue($event)"  
+                            formControlName="webSelected" bindQueryParam="webSelected" [(ngModel)]="offeredServices[0].checked" [attr.value]="offeredServices[0].value"/>
+                            {{offeredServices[0].name}}
+                    </label>
+                    <div *ngIf="webSelected">
+                        <app-panell (modifiedTotal)="getTotal($event)" (numPageEvent)="getNumPage($event)" (numLangEvent)="getNumLang($event)" [numPage]="numPage" [numLang]="numLang"></app-panell>
                     </div>
-                    <!--https://stackoverflow.com/questions/34997128/angular-2-get-values-of-multiple-checked-checkboxes-->
+                    <br>
+                    <label class="seoInput">
+                        <input [id]="offeredServices[1].id" type="checkbox" [value]="offeredServices[1].value" [name]="offeredServices[1].name" (change)="checkValue($event)"  
+                            formControlName="seoSelected" bindQueryParam="seoSelected" [(ngModel)]="offeredServices[1].checked" [attr.value]="offeredServices[1].value"/>
+                            {{offeredServices[1].name}}
+                    </label>
+                    <br>
+                    <label class="adsInput">
+                        <input [id]="offeredServices[2].id" type="checkbox" [value]="offeredServices[2].value" [name]="offeredServices[2].name" (change)="checkValue($event)"  
+                            formControlName="adsSelected" bindQueryParam="adsSelected" [(ngModel)]="offeredServices[2].checked" [attr.value]="offeredServices[2].value"/>
+                            {{offeredServices[2].name}}
+                    </label>
+                    <!--</div>-->
                 </div>
                 <div class="form-group p-1">
-                    <label class="form-label" for="price">Preu: {{sumProject()}}€</label>
+                    <label class="form-label" for="price">Preu:
+                    <input type="text" class="form-control" name="totalPrice" formControlName="totalPrice" bindQueryParam="totalPrice" [(ngModel)]="totalPrice" 
+                    placeholder="{{sumProject()}} €" readonly [value]="sumProject()+' €'"/>
+                </label>
                 </div>
                 <div class="form-group p-1 ">
                     <label class="form-label" for="budget_name">Nom de pressupost: </label>
@@ -29,6 +46,12 @@
                     <input type="text" class="form-control" name="user_name" formControlName="user_name" bindQueryParam="user_name" [(ngModel)]="user_name" />
                 </div>
                 <button class="btn backColorBtn mt-3 textBtn fw-bolder colorHover" type="submit">Enviar</button>
+                <input type="hidden" class="form-control" name="numPage" formControlName="numPage" bindQueryParam="numPage" value="{{numPage}}" [(ngModel)]="numPage" />
+                <input type="hidden" class="form-control" name="numLang" formControlName="numLang" bindQueryParam="numLang" value="{{numLang}}" [(ngModel)]="numLang" />
+                <input type="hidden" class="form-control" name="webSelected" formControlName="webSelected" bindQueryParam="webSelected" value="{{webSelected}}" [(ngModel)]="webSelected" />
+                <input type="hidden" class="form-control" name="seoSelected" formControlName="seoSelected" bindQueryParam="seoSelected" value="{{seoSelected}}" [(ngModel)]="seoSelected" />
+                <input type="hidden" class="form-control" name="adsSelected" formControlName="adsSelected" bindQueryParam="adsSelected" value="{{adsSelected}}" [(ngModel)]="adsSelected" />
+                <input type="hidden" class="form-control" name="totalPrice" formControlName="totalPrice" bindQueryParam="totalPrice" value="{{totalPrice}}" [(ngModel)]="totalPrice" />
             </form>
             <button class="btn backColorBtn mt-3">
             <a class="textBtn fw-bolder" routerLink="/welcome" routerLinkActive="active" ariaCurrentWhenActive="page">Go

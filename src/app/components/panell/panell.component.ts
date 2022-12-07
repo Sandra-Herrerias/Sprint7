@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TotalBudgetService } from 'src/app/services/total-budget.service';
 
@@ -10,19 +10,28 @@ import { TotalBudgetService } from 'src/app/services/total-budget.service';
 export class PanellComponent implements OnInit {
 
   @Output() modifiedTotal = new EventEmitter<number>();
-  @Output() numPages = new EventEmitter<number>();
-  @Output() numLangs = new EventEmitter<number>();
-  
+
+  @Output() numPageEvent = new EventEmitter<number>();
+  @Output() numLangEvent = new EventEmitter<number>();
+
   public formPanell!: FormGroup;
 
-  numPage: number = 0;
-  numLang: number = 0;
+  @Input() numPage!: number ;
+  @Input() numLang!: number ;
   total: number = this.totalService.getPartialSum();
 
   regexOnlyNumbers = "[0-9]+";
 
-  
-  
+
+  ngOnInit(): void {
+    if(this.numPage == undefined){
+      this.numPage = 0;
+    }
+    if(this.numLang == undefined){
+      this.numLang = 0;
+    }
+  }
+
   constructor(private totalService: TotalBudgetService,
     private formBuilder: FormBuilder) {
 
@@ -34,21 +43,33 @@ export class PanellComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ejecutarnumPag(){
+    this.numPageEvent.emit(this.numPage);
+    this.totalService.partialBudget(this.numPage, this.numLang);
+    this.modifiedTotal.emit(this.totalService.getPartialSum());
+  }
+
+  ejecutarnumLang(){
+    this.numLangEvent.emit(this.numLang);
+    this.totalService.partialBudget(this.numPage, this.numLang);
+    this.modifiedTotal.emit(this.totalService.getPartialSum());
+  }
 
   plus($e: any) {
+
+
     if ($e.target.id == 'plusPage') {
       this.numPage++;
     } else if ($e.target.id == 'plusLang') {
       this.numLang++;
-    } else {
+    }else {
       this.numPage = this.formPanell.value.numPage;
       this.numLang = this.formPanell.value.numLang;
     }
+    this.numPageEvent.emit(this.numPage);
+    this.numLangEvent.emit(this.numLang);
     this.totalService.partialBudget(this.numPage, this.numLang);
     this.modifiedTotal.emit(this.totalService.getPartialSum());
-    this.numPages.emit(this.numPage);
-    this.numLangs.emit(this.numLang);
   }
 
   minus($e: any) {
@@ -60,15 +81,14 @@ export class PanellComponent implements OnInit {
       if (this.numLang >= 1) {
         this.numLang--;
       }
-    } else {
+    }else {
       this.numPage = this.formPanell.value.numPage;
       this.numLang = this.formPanell.value.numLang;
     }
-    
+    this.numPageEvent.emit(this.numPage);
+    this.numLangEvent.emit(this.numLang);
     this.totalService.partialBudget(this.numPage, this.numLang);
     this.modifiedTotal.emit(this.totalService.getPartialSum());
-    this.numPages.emit(this.numPage);
-    this.numLangs.emit(this.numLang);
   }
 
 
