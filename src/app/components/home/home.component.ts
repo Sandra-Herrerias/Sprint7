@@ -132,11 +132,7 @@ export class HomeComponent implements OnInit {
         total_price: this.sumProject(),
         date: date
       };
-      alert("Pressupost creat correctament");
       this.totalService.addNewBudget(newBudget);
-      
-    } else {
-      alert("Pressupost no creat, empleni la informació necessaria");
     }
   }
   /**
